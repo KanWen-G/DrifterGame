@@ -1,0 +1,65 @@
+{
+  "level": [
+    {
+      "type": "image",
+      "key": "2744",
+      "url": "TheSnowyState/assets/img/2744.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "baddie",
+      "url": "TheSnowyState/assets/img/baddie.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "diamond",
+      "url": "TheSnowyState/assets/img/diamond.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "dude",
+      "url": "TheSnowyState/assets/img/dude.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "dude1",
+      "url": "TheSnowyState/assets/img/dude.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "firstaid",
+      "url": "TheSnowyState/assets/img/firstaid.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "platform",
+      "url": "TheSnowyState/assets/img/platform.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "sky",
+      "url": "TheSnowyState/assets/img/sky.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "star",
+      "url": "TheSnowyState/assets/img/star.png",
+      "overwrite": false
+    }
+  ],
+  "meta": {
+    "generated": "1565060897798",
+    "app": "Phaser Editor",
+    "url": "http://phasereditor.boniatillo.com",
+    "version": "1.0",
+    "copyright": "Arian Fornaris (c) 2015,2016"
+  }
+}

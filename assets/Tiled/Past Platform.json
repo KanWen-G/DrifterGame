@@ -1,0 +1,14 @@
+{ "columns":18,
+ "image":"red-square-hi.png",
+ "imageheight":600,
+ "imagewidth":600,
+ "margin":0,
+ "name":"Past Platform",
+ "spacing":0,
+ "tilecount":324,
+ "tiledversion":"1.2.4",
+ "tileheight":32,
+ "tilewidth":32,
+ "type":"tileset",
+ "version":1.2
+}

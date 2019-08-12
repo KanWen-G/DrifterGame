@@ -10,7 +10,7 @@ let platforms2;
 let background;
 let scoreText;
 let cursors;
-let inPast = false;
+let inPast = true;
 
 
 // define the MainMenu state and it's methods
@@ -28,10 +28,12 @@ MainMenu.prototype = {
 
     create: function () {
         // creating simple instructions for the player
-        let title = game.add.text(0, 0, 'The Snowy State!', { fontSize: '20px', fill: '#ffffff' });
-        let tutorial = game.add.text(0, 30, "Use Arrow Keys to Move", { fontSize: '20px', fill: '#ffffff' });
-        let toStartText = game.add.text(0, 60, "press [SPACE] to start", { fontSize: '20px', fill: '#ffffff' });
-        game.stage.backgroundColor = "#87cefa"; // change the background color and fit the theme
+        let title = game.add.text(0, 0, 'Drifter ver. -1 ', { fontSize: '20px', fill: '#000000' });
+        let tutorial = game.add.text(0, 30, "Use Arrow Keys to move, SPACEBAR to switch layout", { fontSize: '20px', fill: '#000000' });
+        let toStartText = game.add.text(0, 60, "press [SPACE] to start", { fontSize: '20px', fill: '#000000' });
+        let Text = game.add.text(0, 90, "It is a prototype of tilemap, camera and the switch function", { fontSize: '20px', fill: '#000000' });
+        let Text2 = game.add.text(0, 120, "So please ignore the level design and character moveset.", { fontSize: '20px', fill: '#000000' });
+        game.stage.backgroundColor = "#ffffff"; // change the background color and fit the theme
         console.log('MainMenu: create completed');
     },
 
@@ -81,16 +83,13 @@ Play.prototype = {
         // set ALL tiles to collide *except* those passed in the array
         this.map.setCollision([1],true,this.ULayer,true);
         
-        player = game.add.sprite(0, 0, 'dude');
+        player = game.add.sprite(0, 3000, 'dude');
         game.physics.arcade.enable(player);
         //adding detail to the physics system on the player and the baddies. Precisely the Y-axis, the number in .bounce.y should be the percentage of speed that "bounce back", .gravity.y is the acceleration of gravity 
         player.body.bounce.y = 0.2;
         player.body.gravity.y = 3300;
         player.body.collideWorldBounds = true; //stoping player from going out the bounds
         //creating animations for the player and the baddies, works as "add(name [, frames] [, frameRate] [, loop] [, useNumericIndex])"
-        player.animations.add('left', [0, 1, 2, 3], 10, true);
-        player.animations.add('right', [5, 6, 7, 8], 10, true);
-        console.log('Play: all character created');
 
         //Creating the scoreText object, works like text( [x] [, y] [, text] [, style] [, group]), The style object containing style attributes like font, font size , etc.
         scoreText = game.add.text(12, 12, 'score: 0', { fontSize: '20px', fill: '#000' });
@@ -101,12 +100,8 @@ Play.prototype = {
         console.log('Play: control system created');
 
         //creating sound object to the game
-        this.coinSound = game.add.audio('coin-pop');
-        this.dieSound = game.add.audio('dieSound');
-        this.popSound = game.add.audio('popSound'); 
-        console.log('Play: sound object created');
         game.camera.follow(player);
-        this.redLayer.alpha = 0;
+        this.blueLayer.alpha = 0;
         this.toPast1 = game.add.tween(this.redLayer).to({alpha : 1 },100, "Linear", false, 0, 0);
         this.toPast2 = game.add.tween(this.blueLayer).to({alpha : 0 },100, "Linear", false, 0, 0);
         this.toNow1 = game.add.tween(this.redLayer).to({alpha : 0 },100, "Linear", false, 0, 0);
@@ -165,45 +160,9 @@ Play.prototype = {
             }
         }
 
-
-
-        function collectStar(player, star) {
-            //when player and the star overlap, remove the star from screen
-            star.kill();
-            //adding 10 point to the score and update the score text
-            this.score += 10;
-            this.countingStars++;
-            scoreText.text = 'Score: ' + this.score;
-            this.coinSound.play();
-            //if player collected all the stars game goes to gameover state
-            console.log('Stars collected :' + this.countingStars);
-            if (this.countingStars == 12) {
-                game.state.start('GameOver', true, false, this.score);
-            }
-
-        }
-
-        function collectDiamond(player, diamond) {
-            //when player and the diamond overlap, remove the diamond form screen
-            diamond.kill();
-            this.popSound.play();
-            //adding 50 point to the score and update the score text
-            this.score += 50;
-            scoreText.text = 'Score: ' + this.score;
-
-        }
-
-        function defeatBaddie(player, baddie) {
-            //reduce 25 point to the score and update to the score
-            this.dieSound.play();
-            this.score -= 25;
-            //if player hit the baddie game goes to gameover state
-            scoreText.text = 'Score: ' + this.score;
-            game.state.start('GameOver',true, false, this.score);
-
         }
     }
-}
+
 
 var GameOver = function (game) { };
 GameOver.prototype = {

@@ -1,3 +1,8 @@
+//Drifter the game
+//by Tokyo Drift
+//with Kan, Zac and Jorge
+//Github repository at https://github.com/KanWen-G/DrifterGame
+
 // Declaring strict mode
 "use strict";
 
@@ -48,12 +53,6 @@ MainMenu.prototype = {
 // define the Play state and it's methods
 var Play = function (game) { };
 Play.prototype = {
-    init: function () {
-        this.countingStars = 0;// make sure the stars counter reset to zero
-        this.score = 0; // creating a local score variable that can be pass through
-        console.log('Play: init completed');
-    },
-
     create: function () {
         //enableing the arcade physics system from Phaser
         game.physics.startSystem(Phaser.Physics.ARCADE);

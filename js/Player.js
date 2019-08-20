@@ -7,10 +7,10 @@ function Player(game,x,y) {
 	game.physics.enable(this);
     this.body.collideWorldBounds = true;
     //this.body.setSize();
-    this.maxSpeedNormal = new Phaser.Point(300, 10000);
+    this.maxSpeedNormal = new Phaser.Point(250, 10000);
     this.body.maxVelocity = this.maxSpeedNormal;
     this.maxSpeedShift = new Phaser.Point(500, 10000);
-    this.accel = 1500;
+    this.accel = 500;
     this.pause = true;
     this.body.gravity.y = 4000;
 }

@@ -22,7 +22,8 @@ function preload() {
 //global variables
 var map;
 var tileset;
-var layer;
+var platformLayer;
+var textItem;
 var p;
 var cursors;
 //var jumpButton;
@@ -56,15 +57,17 @@ function create() {
     
     this.Background = map.createLayer('Background');
     this.item = map.createLayer('item');
-    layer = map.createLayer('World1');
-    game.physics.arcade.enable(layer);
-    map.setCollisionBetween(340, 350, true, layer);
+    platformLayer = map.createLayer('World1');
+    textItem = map.createLayer('Interactable Paper');
+    game.physics.arcade.enable(platformLayer);
+    game.physics.arcade.enable(textItem);
+    map.setCollisionBetween(340, 350, true, platformLayer);
 
     
     //  Un-comment this on to see the collision tiles
     // layer.debug = true;
     
-    layer.resizeWorld();
+    platformLayer.resizeWorld();
     
     p = new Player (game,32,32);
     game.add.existing(p);
@@ -116,7 +119,7 @@ function update() {
 
     game.debug.bodyInfo(p);
     
-    game.physics.arcade.collide(p, layer);
+    game.physics.arcade.collide(p, platformLayer);
     
 }
 

@@ -15,7 +15,6 @@ play.prototype = {
         this.item = map.createLayer('item');
         this.layer = map.createLayer('World1');
         this.layer2 = map.createLayer('World2');
-        this.overlaping = map.createLayer('overlaping');
         game.physics.arcade.enable(this.layer);
         game.physics.arcade.enable(this.layer2);
         map.setCollisionBetween(340, 345, true, this.layer);

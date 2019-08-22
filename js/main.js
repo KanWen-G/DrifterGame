@@ -3,8 +3,8 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: p
 
 function preload() {
     
-    game.load.tilemap('mario', 'assets/Tiled/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles', 'assets/Tiled/super_mario.png');
+    game.load.tilemap('gameMap', 'assets/Tiled/gameMap.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('tiles', 'assets/Tiled/gameTiles.png');
     game.load.image('player', 'assets/Tiled/phaser-dude.png');
 
     game.load.audio('Game Music', 'assets/audio/In Game Music.ogg');
@@ -48,7 +48,7 @@ function create() {
     
     game.stage.backgroundColor = '#787878';
     
-    map = game.add.tilemap('mario');
+    map = game.add.tilemap('gameMap');
     
     map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
     
@@ -114,6 +114,10 @@ function update() {
     if(rightKey.downDuration(5)){
         playFX('walking2');
     }
+
+    if(checkOverlap(p, textItem)){
+        playFX('textAdvance');
+    }
     //STILL NEED TO FIGURE OUT HOW TO STOP WALKING SOUNDS
     //jumpButton.onDown.add(playFX(jump), this);
 
@@ -145,4 +149,16 @@ function playFX(soundType){
     if(soundType === 'switch2'){
         switchSound1.play();
     }
+    if(soundType === 'textAdvance'){
+        textAdvanceSound.play();
+    }
+}
+
+function checkOverlap(spriteA, spriteB) {
+
+    var boundsA = spriteA.getBounds();
+    var boundsB = spriteB.getBounds();
+
+    return Phaser.Rectangle.intersects(boundsA, boundsB);
+
 }

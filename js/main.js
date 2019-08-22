@@ -84,7 +84,7 @@ function create() {
     unlockedSound = game.add.audio('Unlocked');
     textAdvanceSound = game.add.audio('Text Advance');
 
-    gameMusic.play();
+    gameMusic.loopFull();
     //walkingSound1.loopFull();
     //walkingSound1.pause();
 
@@ -111,7 +111,7 @@ function update() {
     if(rightKey.downDuration(5)){
         playFX('walking2');
     }
-    
+    //STILL NEED TO FIGURE OUT HOW TO STOP WALKING SOUNDS
     //jumpButton.onDown.add(playFX(jump), this);
 
     game.debug.bodyInfo(p);

@@ -1,5 +1,22 @@
-// Play state
+//global variables
 
+//var jumpButton;
+var leftKey;
+var rightKey;
+var upKey;
+
+var gameMusic;
+var cutsceneMusic;
+var jumpSound;
+var walkingSound1;
+var walkingSound2;
+var switchSound1;
+var switchSound2;
+var lockedSound;
+var unlockedSound;
+var textAdvanceSound;
+
+//// Play state
 var play = function(game) {};
 play.prototype = {
     create: function () {
@@ -8,7 +25,7 @@ play.prototype = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         console.log('Play: arcade physics enable');
 
-        //creating backgroud
+        //creating background
         map = game.add.tilemap('mario');
         map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
         this.Background = map.createLayer('Background');
@@ -25,6 +42,30 @@ play.prototype = {
         this.toEgo2 = game.add.tween(this.layer2).to({alpha : 0 },100, "Linear", false, 0, 0);
         this.toId1 = game.add.tween(this.layer).to({alpha : 0 },100, "Linear", false, 0, 0);
         this.toId2 = game.add.tween(this.layer2).to({alpha : 1 },100, "Linear", false, 0, 0);
+
+        //adding music sprites
+        gameMusic = game.add.audio('Game Music', 0.6);
+        cutsceneMusic = game.add.audio('Cutscene Music', 0.3);
+
+        //adding sfx sprites
+        jumpSound = game.add.audio('Jump', 0.2);
+        walkingSound1 = game.add.audio('Walking 1');
+        walkingSound2 = game.add.audio('Walking 2');
+        switchSound1 = game.add.audio('Switch 1');
+        switchSound2 = game.add.audio('Switch 2');
+        lockedSound = game.add.audio('Locked');
+        unlockedSound = game.add.audio('Unlocked');
+        textAdvanceSound = game.add.audio('Text Advance');
+
+        gameMusic.loopFull();
+        //walkingSound1.loopFull();
+        //walkingSound1.pause();
+
+        //creating key objects
+        leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+        rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+        upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+
         //creating player
         p = new Player (game,32,32);
         game.add.existing(p);
@@ -40,11 +81,25 @@ play.prototype = {
     update: function () {
 
         game.physics.arcade.collide(p, this.layer);
+
+
         if (game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
             this.switchSelf();
         }
+        if(upKey.downDuration(5)){
+            this.playFX('jump');
+        }
+        if(leftKey.downDuration(5)){
+            this.playFX('walking1');
+        }
+        if(rightKey.downDuration(5)){
+            this.playFX('walking2');
+        }
     
-},
+        //STILL NEED TO FIGURE OUT HOW TO STOP WALKING SOUNDS
+        //jumpButton.onDown.add(playFX(jump), this);
+    
+    },
      switchSelf: function(){
              if (this.inId){
              console.log('inEgo');
@@ -62,7 +117,27 @@ play.prototype = {
             this.inId = true;
             }
      },
-    
+     //function to play sounds depending on the input name
+    playFX: function(soundType){
+        if(soundType === 'jump'){
+            jumpSound.play();
+        }
+        if(soundType === 'walking1'){
+            walkingSound1.play();
+        }
+        if(soundType === 'walking2'){
+            walkingSound2.play();
+        }
+        if(soundType === 'switch1'){
+            switchSound1.play();
+        }
+        if(soundType === 'switch2'){
+            switchSound1.play();
+        }
+        if(soundType === 'textAdvance'){
+            textAdvanceSound.play();
+        }
+    }
 };
 
 

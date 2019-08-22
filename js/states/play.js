@@ -12,12 +12,13 @@ play.prototype = {
         map = game.add.tilemap('mario');
         map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
         this.Background = map.createLayer('Background');
-        this.item = map.createLayer('item');
         this.layer = map.createLayer('World1');
         this.layer2 = map.createLayer('World2');
+        this.item = map.createLayer('item');
         game.physics.arcade.enable(this.layer);
         game.physics.arcade.enable(this.layer2);
         map.setCollisionBetween(340, 345, true, this.layer);
+        map.setTileLocationCallback(14, 7, 5, 5, this.textbox, this, this.layer);
         this.layer2.alpha = 0;
         this.layer.resizeWorld();
         this.inId = false;
@@ -38,14 +39,15 @@ play.prototype = {
     },
     
     update: function () {
-
+        game.debug.body(p);
+        game.physics.arcade.collide(p, this.item);
         game.physics.arcade.collide(p, this.layer);
         if (game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
             this.switchSelf();
         }
     
 },
-     switchSelf: function(){
+    switchSelf: function(){
              if (this.inId){
              console.log('inEgo');
              map.setCollisionBetween(340, 345, true, this.layer);
@@ -63,6 +65,9 @@ play.prototype = {
             }
      },
     
+textbox: function(){
+    console.log('do someting');
+    },
 };
 
 

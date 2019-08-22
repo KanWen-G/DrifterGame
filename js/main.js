@@ -1,4 +1,6 @@
-// Kan Wen
+// Team Dritfer
+// Kan Wen, Jorge Ortiz, Zachery Wolfert
+// Github: https://github.com/KanWen-G/DrifterGame
 
 "use strict";
 

@@ -55,9 +55,10 @@ function create() {
     //  14 = ? block
     // map.setCollisionBetween(14, 15);
     
-    this.Background = map.createLayer('Background');
-    this.item = map.createLayer('item');
-    platformLayer = map.createLayer('World1');
+    this.Background = map.createLayer('Background 1');
+    this.item = map.createLayer('Items 1');
+
+    platformLayer = map.createLayer('Platforms 1');
     textItem = map.createLayer('Interactable Paper');
     game.physics.arcade.enable(platformLayer);
     game.physics.arcade.enable(textItem);

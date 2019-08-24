@@ -153,32 +153,18 @@ textbox: function(){
         
         console.log('1');
         if(game.input.keyboard.justPressed(Phaser.Keyboard.F)){
-            this.bmd = game.make.bitmapData(800, 200);
-            this.bmd.context.font = '64px Arial';
-            this.bmd.context.fillStyle = '#ffffff';
             this.word = 'test';
-            this.bmd.context.fillText(this.word, 64, 64);
-            this.bmd.addToWorld();
             p.pause = true;
-            
             game.input.keyboard.addCallbacks(this, null, null, this.keyPress);
             for (var i = 0; i < this.word.length; i++)
-    {
-        this.correct[this.word[i]] = false;
-    }
-
-
+            {
+                this.correct[this.word[i]] = false;
+            }
         }
     },
 
     keyPress: function(char){
-        //  Clear the BMD
-        this.bmd.cls();
 
-    //  Set the x value we'll start drawing the text from
-    var x = 64;
-
-    //  Loop through each letter of the word being entered and check them against the key that was pressed
     for (var i = 0; i < this.word.length; i++)
     {
         this.letter = this.word.charAt(i);
@@ -187,21 +173,11 @@ textbox: function(){
         if (char === this.letter)
         {
             this.correct[this.letter] = true;
+            unlockedSound.play();
         }
 
         //  Now draw the word, letter by letter, changing colour as required
-        if (this.correct[this.letter])
-        {
-            this.bmd.context.fillStyle = '#00ff00';
-        }
-        else
-        {
-            this.bmd.context.fillStyle = '#ffffff';
-        }
 
-        this.bmd.context.fillText(this.letter, x, 64);
-
-        x += this.bmd.context.measureText(this.letter).width;
     }
 },
     

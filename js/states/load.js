@@ -6,7 +6,7 @@ preload: function() {
     game.load.tilemap('mario', 'assets/Tiled/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/Tiled/super_mario.png');
     game.load.image('player', 'assets/Tiled/phaser-dude.png');
-
+    game.load.image('filter', 'assets/img/filter.png');
     game.load.audio('Game Music', 'assets/audio/In Game Music.ogg');
     game.load.audio('Cutscene Music', 'assets/audio/Cutscene Music.ogg');
     game.load.audio('Jump', 'assets/audio/Jump.ogg');

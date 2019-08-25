@@ -24,7 +24,7 @@ play.prototype = {
         //enableing the arcade physics system from Phaser
         game.physics.startSystem(Phaser.Physics.ARCADE);
         console.log('Play: arcade physics enable');
-
+        
         //creating background
         map = game.add.tilemap('mario');
         map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
@@ -73,7 +73,8 @@ play.prototype = {
         game.world.bringToTop(p);
         game.camera.follow(p);
         console.log(p);
-        
+        this.filter = game.add.sprite(p.x, p.y, 'filter');
+        game.world.bringToTop(this.filter);
         // creating cursors
         cursors = game.input.keyboard.createCursorKeys();
 
@@ -86,6 +87,10 @@ play.prototype = {
     
     update: function () {
         game.debug.body(p);
+        game.debug.body(this.filter);
+        this.filter.anchor.x = p.x;
+        this.filter.anchor.y = p.y;
+        
         game.physics.arcade.collide(p, this.item);
         game.physics.arcade.collide(p, this.layer);
 
@@ -151,34 +156,33 @@ textbox: function(){
 
     unlocking: function(){
         
-        console.log('1');
+        console.log(this.attempt);
+        console.log(this.theInput);
         if(game.input.keyboard.justPressed(Phaser.Keyboard.F)){
             this.word = 'test';
+            this.attempt = 0;
+            this.theInput = [];
+            this.correct = 0;
             p.pause = true;
             game.input.keyboard.addCallbacks(this, null, null, this.keyPress);
-            for (var i = 0; i < this.word.length; i++)
-            {
-                this.correct[this.word[i]] = false;
-            }
         }
     },
 
     keyPress: function(char){
-
-    for (var i = 0; i < this.word.length; i++)
-    {
-        this.letter = this.word.charAt(i);
-
-        //  If they pressed one of the letters in the word, flag it as correct
-        if (char === this.letter)
-        {
-            this.correct[this.letter] = true;
-            unlockedSound.play();
+        this.theInput[this.attempt] = char;
+        this.attempt++;
+        if(this.attempt == this.word.length){
+            for (var i = 0; i < this.word.length; i++)
+            {
+                if(this.theInput[i] == this.word.charAt(i))
+                    this.correct++;
+            }
+            if (this.correct == this.word.length){
+                unlockedSound.play();
+                p.pause = false;
+                game.input.keyboard.removeremoveCallbacks();
+            }
         }
-
-        //  Now draw the word, letter by letter, changing colour as required
-
-    }
 },
     
 };

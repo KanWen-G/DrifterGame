@@ -35,7 +35,7 @@ play.prototype = {
         game.physics.arcade.enable(this.layer);
         game.physics.arcade.enable(this.layer2);
         map.setCollisionBetween(340, 345, true, this.layer);
-        map.setTileLocationCallback(14, 7, 1, 1, this.unlocking, this, this.layer);
+        map.setTileLocationCallback(14, 7, 1, 1, this.lock1, this, this.layer);
         this.layer2.alpha = 0;
         this.layer.resizeWorld();
         this.inId = false;
@@ -73,8 +73,6 @@ play.prototype = {
         game.world.bringToTop(p);
         game.camera.follow(p);
         console.log(p);
-        this.filter = game.add.sprite(p.x, p.y, 'filter');
-        game.world.bringToTop(this.filter);
         // creating cursors
         cursors = game.input.keyboard.createCursorKeys();
 
@@ -82,20 +80,20 @@ play.prototype = {
         this.correct = [];
 
         //unlock
-
+        this.blurX = game.add.filter('BlurX');
+        this.blurY = game.add.filter('BlurY');
+        this.blurX.blur = 100;
+        this.blurY.blur = 100;
     },
     
     update: function () {
         game.debug.body(p);
-        game.debug.body(this.filter);
-        this.filter.anchor.x = p.x;
-        this.filter.anchor.y = p.y;
         
         game.physics.arcade.collide(p, this.item);
         game.physics.arcade.collide(p, this.layer);
 
 
-        if (game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
+        if (!p.pause && game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
             this.switchSelf();
         }
         if(upKey.downDuration(5)){
@@ -153,37 +151,13 @@ textbox: function(){
             textAdvanceSound.play();
         }
     },
-
-    unlocking: function(){
-        
-        console.log(this.attempt);
-        console.log(this.theInput);
-        if(game.input.keyboard.justPressed(Phaser.Keyboard.F)){
-            this.word = 'test';
-            this.attempt = 0;
-            this.theInput = [];
-            this.correct = 0;
-            p.pause = true;
-            game.input.keyboard.addCallbacks(this, null, null, this.keyPress);
-        }
+    
+    lock1: function(){
+        unlocking('test');
     },
 
-    keyPress: function(char){
-        this.theInput[this.attempt] = char;
-        this.attempt++;
-        if(this.attempt == this.word.length){
-            for (var i = 0; i < this.word.length; i++)
-            {
-                if(this.theInput[i] == this.word.charAt(i))
-                    this.correct++;
-            }
-            if (this.correct == this.word.length){
-                unlockedSound.play();
-                p.pause = false;
-                game.input.keyboard.removeremoveCallbacks();
-            }
-        }
-},
+    
+    
     
 };
 

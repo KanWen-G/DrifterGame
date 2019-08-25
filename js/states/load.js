@@ -17,6 +17,8 @@ preload: function() {
     game.load.audio('Locked', 'assets/audio/Locked.ogg');
     game.load.audio('Unlocked', 'assets/audio/Unlocked.ogg');
     game.load.audio('Text Advance', 'assets/audio/Text Advance.ogg');
+    game.load.script('BlurX', 'https://cdn.rawgit.com/photonstorm/phaser-ce/master/filters/BlurX.js');
+    game.load.script('BlurY', 'https://cdn.rawgit.com/photonstorm/phaser-ce/master/filters/BlurY.js');
 },
 create: function() {
     // check for local storage browser support

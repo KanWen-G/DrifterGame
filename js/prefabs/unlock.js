@@ -1,5 +1,7 @@
 function unlocking(word){
     if(game.input.keyboard.justPressed(Phaser.Keyboard.F)){
+        this.lockedSound = game.add.audio('Locked');
+        this.unlockedSound = game.add.audio('Unlocked');
         p.filter = [this.blurX, this.blurY];
         this.word = word;
         this.attempt = 0;
@@ -11,7 +13,7 @@ function unlocking(word){
 }
 
 function keyPress (char){
-    lockedSound.play();
+    this.lockedSound.play();
     if (this.attempt < this.word.length){
         this.theInput[this.attempt] = char;
         this.attempt++;
@@ -23,7 +25,7 @@ function keyPress (char){
                 this.correct++;
         }
         if (this.correct == this.word.length){
-            unlockedSound.play();
+            this.unlockedSound.play();
             p.pause = false;
             game.input.keyboard.removeCallbacks();
         }

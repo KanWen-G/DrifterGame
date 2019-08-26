@@ -4,8 +4,8 @@ var load = function(game) {};
 load.prototype = {
 preload: function() {
     game.load.tilemap('mario', 'assets/Tiled/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.spritesheet('player', 'assets/img/PeterSprites.png',32,64);
     game.load.image('tiles', 'assets/Tiled/super_mario.png');
-    game.load.image('player', 'assets/Tiled/phaser-dude.png');
     game.load.image('filter', 'assets/img/filter.png');
     game.load.audio('Game Music', 'assets/audio/In Game Music.ogg');
     game.load.audio('Cutscene Music', 'assets/audio/Cutscene Music.ogg');

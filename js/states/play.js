@@ -1,21 +1,3 @@
-//global variables
-
-//var jumpButton;
-var leftKey;
-var rightKey;
-var upKey;
-
-var gameMusic;
-var cutsceneMusic;
-var jumpSound;
-var walkingSound1;
-var walkingSound2;
-var switchSound1;
-var switchSound2;
-var lockedSound;
-var unlockedSound;
-var textAdvanceSound;
-
 //// Play state
 var play = function(game) {};
 play.prototype = {
@@ -35,6 +17,7 @@ play.prototype = {
         game.physics.arcade.enable(this.layer);
         game.physics.arcade.enable(this.layer2);
         map.setCollisionBetween(340, 345, true, this.layer);
+        map.setCollisionBetween(380, 385, true, this.layer2);
         map.setTileLocationCallback(14, 7, 1, 1, this.lock1, this, this.layer);
         this.layer2.alpha = 0;
         this.layer.resizeWorld();
@@ -45,22 +28,16 @@ play.prototype = {
         this.toId2 = game.add.tween(this.layer2).to({alpha : 1 },100, "Linear", false, 0, 0);
 
         //adding music sprites
-        gameMusic = game.add.audio('Game Music', 0.6);
-        cutsceneMusic = game.add.audio('Cutscene Music', 0.3);
+        this.gameMusic = game.add.audio('Game Music', 0.1);
+        this.cutsceneMusic = game.add.audio('Cutscene Music', 0.3);
+        this.gameMusic.loopFull();
 
         //adding sfx sprites
-        jumpSound = game.add.audio('Jump', 0.2);
-        walkingSound1 = game.add.audio('Walking 1');
-        walkingSound2 = game.add.audio('Walking 2');
-        switchSound1 = game.add.audio('Switch 1');
-        switchSound2 = game.add.audio('Switch 2');
-        lockedSound = game.add.audio('Locked');
-        unlockedSound = game.add.audio('Unlocked');
-        textAdvanceSound = game.add.audio('Text Advance');
+        this.switchSound1 = game.add.audio('Switch 1');
+        this.switchSound2 = game.add.audio('Switch 2');
+        this.textAdvanceSound = game.add.audio('Text Advance');
 
-        gameMusic.loopFull();
-        //walkingSound1.loopFull();
-        //walkingSound1.pause();
+
 
         //creating key objects
         leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
@@ -88,22 +65,10 @@ play.prototype = {
     
     update: function () {
         game.debug.body(p);
-        
-        game.physics.arcade.collide(p, this.item);
         game.physics.arcade.collide(p, this.layer);
-
-
+        game.physics.arcade.collide(p, this.layer2);
         if (!p.pause && game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
             this.switchSelf();
-        }
-        if(upKey.downDuration(5)){
-            this.playFX('jump');
-        }
-        if(leftKey.downDuration(5)){
-            this.playFX('walking1');
-        }
-        if(rightKey.downDuration(5)){
-            this.playFX('walking2');
         }
     
 
@@ -116,6 +81,8 @@ play.prototype = {
              this.toEgo1.start();
              this.toEgo2.start();
              this.inId = false;
+             p.inId = false;
+                 this.switchSound1.play();
              }else{
             console.log('inId');
             map.setCollisionBetween(340, 345, false, this.layer);
@@ -123,6 +90,8 @@ play.prototype = {
             this.toId1.start();
             this.toId2.start();
             this.inId = true;
+            p.inId = true;
+                 this.switchSound2.play();
             }
      },
     
@@ -130,27 +99,6 @@ textbox: function(){
     console.log('do someting');
     },
     
-     //function to play sounds depending on the input name
-    playFX: function(soundType){
-        if(soundType === 'jump'){
-            jumpSound.play();
-        }
-        if(soundType === 'walking1'){
-            walkingSound1.play();
-        }
-        if(soundType === 'walking2'){
-            walkingSound2.play();
-        }
-        if(soundType === 'switch1'){
-            switchSound1.play();
-        }
-        if(soundType === 'switch2'){
-            switchSound1.play();
-        }
-        if(soundType === 'textAdvance'){
-            textAdvanceSound.play();
-        }
-    },
     
     lock1: function(){
         unlocking('test');

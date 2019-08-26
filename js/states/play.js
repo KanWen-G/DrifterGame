@@ -98,10 +98,6 @@ play.prototype = {
         game.physics.arcade.collide(p, this.item);
         game.physics.arcade.collide(p, this.layer);
 
-        if(p.body.velocity.x != 0){
-            currentMessage.fadeText();
-        }
-
         if (!p.pause && game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
             this.switchSelf();
         }

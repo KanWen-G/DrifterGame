@@ -41,7 +41,7 @@ play.prototype = {
         map.setTileLocationCallback(14, 7, 1, 1, this.makeText, this, this.layer);
         //map.setTileLocationCallback(19, 7, 1, 1, this.makeText, this, this.layer);
 
-
+        this.haveText = false;
         this.layer2.alpha = 0;
         this.layer.resizeWorld();
         this.inId = false;
@@ -98,7 +98,15 @@ play.prototype = {
         game.physics.arcade.collide(p, this.item);
         game.physics.arcade.collide(p, this.layer);
 
+        if(p.body.velocity.x != 0 && this.haveText){
+            console.log('something')
+            currentMessage.fadeText1.start();
+            currentMessage.fadeText2.start();
+            this.haveText = false;
+        }
+        
         if (!p.pause && game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
+            
             this.switchSelf();
         }
         if(upKey.downDuration(5)){
@@ -133,7 +141,9 @@ play.prototype = {
     
     makeText: function(){
         currentMessage = new TextBox(game, 0);
-
+        if(!this.haveText){
+            this.haveText = true;
+        }
     },
     
      //function to play sounds depending on the input name

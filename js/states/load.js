@@ -7,6 +7,7 @@ preload: function() {
     game.load.spritesheet('player', 'assets/img/PeterSprites.png',32,64);
     game.load.image('tiles', 'assets/Tiled/super_mario.png');
     game.load.image('filter', 'assets/img/filter.png');
+    game.load.image('textBox', 'assets/img/TextBox.png');
     game.load.audio('Game Music', 'assets/audio/In Game Music.ogg');
     game.load.audio('Cutscene Music', 'assets/audio/Cutscene Music.ogg');
     game.load.audio('Jump', 'assets/audio/Jump.ogg');

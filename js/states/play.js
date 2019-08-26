@@ -6,7 +6,7 @@ play.prototype = {
         //enableing the arcade physics system from Phaser
         game.physics.startSystem(Phaser.Physics.ARCADE);
         console.log('Play: arcade physics enable');
-        
+        this.currentMessage;
         //creating background
         map = game.add.tilemap('mario');
         map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
@@ -19,6 +19,10 @@ play.prototype = {
         map.setCollisionBetween(340, 345, true, this.layer);
         map.setCollisionBetween(380, 385, true, this.layer2);
         map.setTileLocationCallback(14, 7, 1, 1, this.lock1, this, this.layer);
+        map.setTileLocationCallback(14, 7, 1, 1, this.makeText, this, this.layer);
+        //map.setTileLocationCallback(19, 7, 1, 1, this.makeText, this, this.layer);
+
+        this.haveText = false;
         this.layer2.alpha = 0;
         this.layer.resizeWorld();
         this.inId = false;
@@ -36,13 +40,6 @@ play.prototype = {
         this.switchSound1 = game.add.audio('Switch 1');
         this.switchSound2 = game.add.audio('Switch 2');
         this.textAdvanceSound = game.add.audio('Text Advance');
-
-
-
-        //creating key objects
-        leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-        rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-        upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
 
         //creating player
         p = new Player (game,32,32);
@@ -67,6 +64,14 @@ play.prototype = {
         game.debug.body(p);
         game.physics.arcade.collide(p, this.layer);
         game.physics.arcade.collide(p, this.layer2);
+
+        if(p.body.velocity.x != 0 && this.haveText){
+            console.log('something')
+            this.currentMessage.fadeText1.start();
+            this.currentMessage.fadeText2.start();
+            this.haveText = false;
+        }
+        
         if (!p.pause && game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
             this.switchSelf();
         }
@@ -82,7 +87,7 @@ play.prototype = {
              this.toEgo2.start();
              this.inId = false;
              p.inId = false;
-                 this.switchSound1.play();
+             this.switchSound1.play();
              }else{
             console.log('inId');
             map.setCollisionBetween(340, 345, false, this.layer);
@@ -91,12 +96,15 @@ play.prototype = {
             this.toId2.start();
             this.inId = true;
             p.inId = true;
-                 this.switchSound2.play();
+            this.switchSound2.play();
             }
-     },
+    },
     
-textbox: function(){
-    console.log('do someting');
+    makeText: function(){
+        this.currentMessage = new TextBox(game, 0);
+        if(!this.haveText){
+            this.haveText = true;
+        }
     },
     
     

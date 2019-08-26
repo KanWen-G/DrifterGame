@@ -16,6 +16,8 @@ var lockedSound;
 var unlockedSound;
 var textAdvanceSound;
 
+var currentMessage;
+
 //// Play state
 var play = function(game) {};
 play.prototype = {
@@ -36,6 +38,10 @@ play.prototype = {
         game.physics.arcade.enable(this.layer2);
         map.setCollisionBetween(340, 345, true, this.layer);
         map.setTileLocationCallback(14, 7, 1, 1, this.lock1, this, this.layer);
+        map.setTileLocationCallback(14, 7, 1, 1, this.makeText, this, this.layer);
+        //map.setTileLocationCallback(19, 7, 1, 1, this.makeText, this, this.layer);
+
+
         this.layer2.alpha = 0;
         this.layer.resizeWorld();
         this.inId = false;
@@ -92,6 +98,9 @@ play.prototype = {
         game.physics.arcade.collide(p, this.item);
         game.physics.arcade.collide(p, this.layer);
 
+        if(p.body.velocity.x != 0){
+            currentMessage.fadeText();
+        }
 
         if (!p.pause && game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
             this.switchSelf();
@@ -124,10 +133,11 @@ play.prototype = {
             this.toId2.start();
             this.inId = true;
             }
-     },
+    },
     
-textbox: function(){
-    console.log('do someting');
+    makeText: function(){
+        currentMessage = new TextBox(game, 0);
+
     },
     
      //function to play sounds depending on the input name

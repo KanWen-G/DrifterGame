@@ -7,7 +7,8 @@ function Player(game,x,y) {
 	//physics
 	game.physics.enable(this);
     this.body.collideWorldBounds = true;
-    //this.body.setSize();
+    this.body.setSize(15,45);
+    this.body.offset.setTo(10, 20);
     this.maxSpeedNormal = new Phaser.Point(250, 10000);
     this.body.maxVelocity = this.maxSpeedNormal;
     this.maxSpeedShift = new Phaser.Point(500, 10000);
@@ -77,12 +78,12 @@ Player.prototype.update = function () {
         this.animations.play('walk');
         xAcc += this.accel;
         if(!this.inId){
-            if(!this.walkingSound1.isPlaying){
+            if(!this.walkingSound1.isPlaying && !this.walkingSound2.isPlaying){
                 this.walkingSound1.play();
             }
         }
         if(this.inId){
-            if(!this.walkingSound2.isPlaying){
+            if(!this.walkingSound1.isPlaying && !this.walkingSound2.isPlaying){
                 this.walkingSound2.play();
             }
         }
@@ -92,12 +93,12 @@ Player.prototype.update = function () {
         this.animations.play('walk');
         xAcc -= this.accel;
         if(!this.inId){
-            if(!this.walkingSound1.isPlaying){
+            if(!this.walkingSound1.isPlaying && !this.walkingSound2.isPlaying){
                 this.walkingSound1.play();
             }
         }
         if(this.inId){
-            if(!this.walkingSound2.isPlaying){
+            if(!this.walkingSound1.isPlaying && !this.walkingSound2.isPlaying){
                 this.walkingSound2.play();
             }
         }

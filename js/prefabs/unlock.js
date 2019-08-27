@@ -38,6 +38,9 @@ function keyPress (char){
             p.pause = false;
             game.input.keyboard.removeCallbacks();
             isLock = true;
+            this.lock.alpha = 0;
+            this.lock.kill();
+
 
         }
         if (this.correct < this.word.length){
@@ -46,7 +49,10 @@ function keyPress (char){
             this.attempt = 0;
             this.correct = 0;
             this.failSound.play();
-            this.lock.alhpa = 0;
+            this.lock.alpha = 0;
+            p.pause = false;
+            game.input.keyboard.removeCallbacks();
+            this.lock.kill();
         }
     }
     console.log(this.theInput);

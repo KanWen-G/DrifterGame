@@ -5,14 +5,14 @@ function Filter(game,x,y) {
     this.anchor.set(0.5, 0.5);
 	//physics
 	game.physics.enable(this);
+    this.body.collideWorldBounds = true;
+    this.body.setSize(15,45);
     this.body.offset.setTo(10, 20);
     this.maxSpeedNormal = new Phaser.Point(250, 10000);
     this.body.maxVelocity = this.maxSpeedNormal;
     this.maxSpeedShift = new Phaser.Point(500, 10000);
     this.accel = 500;
     this.body.gravity.y = 4000;
-    this.inId = false;
-    this.faceleft = false;
     this.pause = false;
     this.scale.x *= -1
     
@@ -22,7 +22,7 @@ Filter.prototype = Object.create(Phaser.Sprite.prototype);
 Filter.prototype.constructor = Filter;
 
 // override Phaser.Sprite update (to spin the diamond)
-Filter.prototype.update = function () {
+Fiter.prototype.update = function () {
     //speed up
 
     var xAcc = 0;
@@ -40,18 +40,10 @@ Filter.prototype.update = function () {
         if( game.input.keyboard.justPressed(Phaser.Keyboard.RIGHT) ||
            game.input.keyboard.justPressed(Phaser.Keyboard.D)){
             this.body.velocity.x = 0;
-            if(this.faceleft){
-                this.faceleft = false;
-                this.scale.x *= -1;
-            }
         }
         if(game.input.keyboard.justPressed(Phaser.Keyboard.LEFT) ||
            game.input.keyboard.justPressed(Phaser.Keyboard.A) ) {
             this.body.velocity.x = 0;
-            if(!this.faceleft){
-                this.faceleft = true;
-                this.scale.x *= -1;
-            }
         }
         
         
@@ -71,6 +63,7 @@ Filter.prototype.update = function () {
         
     }else if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) ||
         game.input.keyboard.isDown(Phaser.Keyboard.A)){
+        this.animations.play('walk');
         xAcc -= this.accel;
         
     } else {

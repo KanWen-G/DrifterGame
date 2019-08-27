@@ -59,9 +59,9 @@ tutorial.prototype = {    create: function () {
     this.toId4 = game.add.tween(this.items2).to({alpha : 1 },100, "Linear", false, 0, 0);
 
     //adding music sprites
-    this.gameMusic = game.add.audio('Game Music', 0.1);
-    this.cutsceneMusic = game.add.audio('Cutscene Music', 0.3);
-    this.gameMusic.loopFull();
+    //this.gameMusic = game.add.audio('Game Music', 0.1);
+    //this.cutsceneMusic = game.add.audio('Cutscene Music', 0.3);
+    //this.gameMusic.loopFull();
 
     //adding sfx sprites
     this.switchSound1 = game.add.audio('Switch 1');
@@ -164,21 +164,23 @@ onblock: function(){
 },
 
 lock1: function(){
-    unlocking('pas');
-    if (game.input.keyboard.justPressed(Phaser.Keyboard.R)){
-        p.pause = false;
-        game.input.keyboard.removeCallbacks();
+    if(!this.inId){
+        unlocking('pas');
+        if(isLock){    
+            map.setCollision(310,false, this.items);
+            map.setCollision(330,false, this.items);
+            map.setCollision(350,false, this.items);}
     }
-    if(isLock){    
-        map.setCollision(310,false, this.items);
-        map.setCollision(330,false, this.items);
-        map.setCollision(350,false, this.items);}
-
 },
 
 nextlevel: function(){
-    game.state.start('play', true);
+    game.camera.fade(0x000000, 1000);
+    game.time.events.add(Phaser.Timer.SECOND * 1, this.startPlay, this);
 },
+
+startPlay: function(){
+    game.state.start('play', true);
+}
 
 
 };

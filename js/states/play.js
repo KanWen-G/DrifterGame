@@ -47,9 +47,9 @@ play.prototype = {
         this.toId2 = game.add.tween(this.state2).to({alpha : 1 },100, "Linear", false, 0, 0);
 
         //adding music sprites
-        this.gameMusic = game.add.audio('Game Music', 0.2);
-        this.cutsceneMusic = game.add.audio('Cutscene Music', 0.3);
-        this.gameMusic.loopFull();
+        //this.gameMusic = game.add.audio('Game Music', 0.2);
+        //this.cutsceneMusic = game.add.audio('Cutscene Music', 0.3);
+        //this.gameMusic.loopFull();
 
         //adding sfx sprites
         this.switchSound1 = game.add.audio('Switch 1');
@@ -57,7 +57,7 @@ play.prototype = {
         this.textAdvanceSound = game.add.audio('Text Advance');
 
         //creating player
-        p = new Player (game,288,3264);
+        p = new Player (game,288,1600);
         game.add.existing(p);
         game.world.bringToTop(p);
         game.camera.follow(p);
@@ -66,9 +66,9 @@ play.prototype = {
         cursors = game.input.keyboard.createCursorKeys();
 
         //creating filter
-        this.screenFilter = game.add.sprite(288, 3264, 'filter');
-        this.screenFilter.alpha = 0.3;
-        this.screenFilter.anchor.set(0.5,0.5);
+        //this.screenFilter = game.add.sprite(288, 1600, 'filter');
+        //this.screenFilter.alpha = 0.3;
+        //this.screenFilter.anchor.set(0.5,0.5);
 
         //creating correct array for unlock
         this.correct = [];
@@ -78,6 +78,14 @@ play.prototype = {
         this.blurY = game.add.filter('BlurY');
         this.blurX.blur = 100;
         this.blurY.blur = 100;
+
+        //screen darkener
+        this.screenDarkener = game.add.sprite(game.width/2, game.height/2,'screenfilter');
+
+        spotLight = new Filter (game, 288, 1600);
+        spotLight.alpha = 0.4;
+        game.add.existing(spotLight);
+
     },
     
     update: function () {
@@ -85,6 +93,10 @@ play.prototype = {
         game.physics.arcade.collide(p, this.state1);
         game.physics.arcade.collide(p, this.state2);
         game.physics.arcade.collide(p, this.Background);
+
+        game.physics.arcade.collide(spotLight, this.state1);
+        game.physics.arcade.collide(spotLight, this.state2);
+        game.physics.arcade.collide(spotLight, this.Background);
 
         if(p.body.velocity.x != 0 && this.haveText){
             console.log('something')

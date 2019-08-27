@@ -47,7 +47,7 @@ play.prototype = {
         this.toId2 = game.add.tween(this.state2).to({alpha : 1 },100, "Linear", false, 0, 0);
 
         //adding music sprites
-        this.gameMusic = game.add.audio('Game Music', 0.1);
+        this.gameMusic = game.add.audio('Game Music', 0.2);
         this.cutsceneMusic = game.add.audio('Cutscene Music', 0.3);
         this.gameMusic.loopFull();
 
@@ -57,13 +57,18 @@ play.prototype = {
         this.textAdvanceSound = game.add.audio('Text Advance');
 
         //creating player
-        p = new Player (game,192,3328);
+        p = new Player (game,288,3264);
         game.add.existing(p);
         game.world.bringToTop(p);
         game.camera.follow(p);
         console.log(p);
         // creating cursors
         cursors = game.input.keyboard.createCursorKeys();
+
+        //creating filter
+        this.screenFilter = game.add.sprite(288, 3264, 'filter');
+        this.screenFilter.alpha = 0.3;
+        this.screenFilter.anchor.set(0.5,0.5);
 
         //creating correct array for unlock
         this.correct = [];

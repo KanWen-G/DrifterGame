@@ -141,19 +141,19 @@ update: function () {
 
 makeText: function(){
     if(!this.haveText && this.items.alpha != 0){
-        this.currentMessage = new TextBox(game, 1);
+        this.currentMessage = new TextBox(game, 0);
         this.haveText = true;
     }
 },
 makeText2: function(){
     if(!this.haveText && this.items.alpha != 0){
-        this.currentMessage = new TextBox(game, 2);
+        this.currentMessage = new TextBox(game, 1);
         this.haveText = true;
     }
 },
 makeText3: function(){
     if(!this.haveText && this.items.alpha != 0){
-        this.currentMessage = new TextBox(game, 3);
+        this.currentMessage = new TextBox(game, 2);
         this.haveText = true;
     }
 },

@@ -5,7 +5,7 @@ function TextBox(game, index) {
         boundsAlignV: "top", 
         wordWrap: true, wordWrapWidth: 510 };
     //array to store all textBox dialogues
-    this.textLines = ['one time', 'two times', 'three times'];
+    this.textLines = ['Letter P.', 'Letter A.', 'Letter S.'];
 
 
     //Phaser.Sprite.call(this, game,x, y, index, 'TextBox');

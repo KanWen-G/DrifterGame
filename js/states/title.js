@@ -16,7 +16,7 @@ create: function() {
 update: function() {
     // check for UP input
     if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
-        game.state.start('play');
+        game.state.start('tutorial');
     }
 },
 };

@@ -25,7 +25,7 @@ function TextBox(game, index) {
     //game.time.events.add(0, fadeText, this);
     this.fadeText1 = game.add.tween(this.currentText).to( { alpha: 0 }, Phaser.Timer.SECOND, Phaser.Easing.Linear.None, true);
     this.fadeText2 = game.add.tween(this.currentTextBox).to( { alpha: 0 }, Phaser.Timer.SECOND, Phaser.Easing.Linear.None, true);
-
+    console.log('in TextBox');
 }
 
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)

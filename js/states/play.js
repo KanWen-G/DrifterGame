@@ -32,8 +32,9 @@ play.prototype = {
         map.setCollisionBetween(340, 345, false, this.state2); //collision for platforms in state 2
         map.setCollisionBetween(380, 385, false, this.state2); //collision for platforms in state 2
 
-        map.setTileLocationCallback(60, 95, 2, 2, this.makeText, this, this.state1);
-        map.setTileLocationCallback(60, 95, 1, 1, this.lock1, this, this.state1);
+        map.setTileLocationCallback(36, 107, 1, 1, this.makeText(0), this, this.state1);
+        map.setTileLocationCallback(37, 95, 1, 1, this.makeText(1), this, this.state1);
+        map.setTileLocationCallback(60, 95, 1, 1, this.makeText(2), this, this.state2);
         //map.setTileLocationCallback(19, 7, 1, 1, this.makeText, this, this.layer);
 
         this.haveText = false;
@@ -56,7 +57,7 @@ play.prototype = {
         this.textAdvanceSound = game.add.audio('Text Advance');
 
         //creating player
-        p = new Player (game,192,3400);
+        p = new Player (game,192,3328);
         game.add.existing(p);
         game.world.bringToTop(p);
         game.camera.follow(p);
@@ -98,9 +99,12 @@ play.prototype = {
              console.log('inEgo');
              map.setCollisionBetween(340, 345, true, this.state1);
              map.setCollisionBetween(380, 385, true, this.state1);
+             
+             map.setCollisionBetween(163, 164, true, this.state1);
+             map.setCollisionBetween(183, 184, true, this.state1);
 
-            map.setCollisionBetween(380, 385, false, this.state2);
-            map.setCollisionBetween(340, 345, false, this.state2);
+             map.setCollisionBetween(380, 385, false, this.state2);
+             map.setCollisionBetween(340, 345, false, this.state2);
 
              map.setCollisionBetween(163, 164, false, this.state2);
              map.setCollisionBetween(183, 184, false, this.state2);
@@ -113,6 +117,9 @@ play.prototype = {
             console.log('inId');
             map.setCollisionBetween(380, 385, true, this.state2);
             map.setCollisionBetween(340, 345, true, this.state2);
+
+            map.setCollisionBetween(163, 164, true, this.state2);
+            map.setCollisionBetween(183, 184, true, this.state2);
 
             map.setCollisionBetween(340, 345, false, this.state1);
             map.setCollisionBetween(380, 385, false, this.state1);
@@ -127,8 +134,8 @@ play.prototype = {
             }
     },
     
-    makeText: function(){
-        this.currentMessage = new TextBox(game, 0);
+    makeText: function(index){
+        this.currentMessage = new TextBox(game, index);
         if(!this.haveText){
             this.haveText = true;
         }

@@ -67,7 +67,7 @@ Player.prototype.update = function () {
         game.input.keyboard.isDown(Phaser.Keyboard.W)){
         if (this.body.onFloor())
         {
-            this.body.velocity.y = -700;
+            this.body.velocity.y = -900;
             this.jumpSound.play();
         }
 	}

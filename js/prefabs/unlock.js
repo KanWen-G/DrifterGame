@@ -1,18 +1,22 @@
 function unlocking(word){
-    if(game.input.keyboard.justPressed(Phaser.Keyboard.F)){
-        this.lock = game.add.sprite(game.camera.x + 300, 150, 'lock');
-        //this.lock= game.add.sprite(this, game,game.camera.x + 400, game.camera.y, 'lock');
-        this.frame = 0;
-        isLock = false;
-        this.lockedSound = game.add.audio('Locked');
-        this.unlockedSound = game.add.audio('Unlocked');
-        this.failSound = game.add.audio('LockFail');
-        this.word = word;
-        this.attempt = 0;
-        this.theInput = [];
-        this.correct = 0;
-        p.pause = true;
-        game.input.keyboard.addCallbacks(this, null, null, this.keyPress);
+    this.counterF = false;
+    if(counterF == false){
+        if(game.input.keyboard.justPressed(Phaser.Keyboard.F)){
+            this.lock = game.add.sprite(game.camera.x + 300, 150, 'lock');
+            //this.lock= game.add.sprite(this, game,game.camera.x + 400, game.camera.y, 'lock');
+            this.frame = 0;
+            isLock = false;
+            this.lockedSound = game.add.audio('Locked');
+            this.unlockedSound = game.add.audio('Unlocked');
+            this.failSound = game.add.audio('LockFail');
+            this.word = word;
+            this.attempt = 0;
+            this.theInput = [];
+            this.correct = 0;
+            p.pause = true;
+            game.input.keyboard.addCallbacks(this, null, null, this.keyPress);
+            this.counterF = true;
+        }
     }
 }
 
@@ -33,6 +37,7 @@ function keyPress (char){
             if(this.theInput[i] == this.word.charAt(i))
                 this.correct++;
         }
+
         if (this.correct == this.word.length){
             this.unlockedSound.play();
             p.pause = false;

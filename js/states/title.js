@@ -22,7 +22,7 @@ create: function() {
     var playText = game.add.text(game.width / 2, game.height * .8, 'Press the SPACEBAR to Start');
     playText.anchor.set(0.5);
 
-    this.gameMusic = game.add.audio('Game Music', 0.1);
+    this.gameMusic = game.add.audio('Game Music', 0.2);
     this.cutsceneMusic = game.add.audio('Cutscene Music', 0.3);
     this.gameMusic.loopFull();
     

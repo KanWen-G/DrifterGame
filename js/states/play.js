@@ -80,23 +80,23 @@ play.prototype = {
         this.blurY.blur = 100;
 
         //screen darkener
-        this.screenDarkener = game.add.sprite(game.width/2, game.height/2,'screenfilter');
+        //this.screenDarkener = game.add.sprite(game.width/2, game.height/2,'screenfilter');
 
-        spotLight = new Filter (game, 288, 1600);
-        spotLight.alpha = 0.4;
-        game.add.existing(spotLight);
+        //spotLight = new Filter (game, 288, 1600);
+        //spotLight.alpha = 0.4;
+        //game.add.existing(spotLight);
 
     },
     
     update: function () {
-        game.debug.body(p);
+        //game.debug.body(p);
         game.physics.arcade.collide(p, this.state1);
         game.physics.arcade.collide(p, this.state2);
         game.physics.arcade.collide(p, this.Background);
 
-        game.physics.arcade.collide(spotLight, this.state1);
-        game.physics.arcade.collide(spotLight, this.state2);
-        game.physics.arcade.collide(spotLight, this.Background);
+        //game.physics.arcade.collide(spotLight, this.state1);
+        //game.physics.arcade.collide(spotLight, this.state2);
+        //game.physics.arcade.collide(spotLight, this.Background);
 
         if(p.body.velocity.x != 0 && this.haveText){
             console.log('something')

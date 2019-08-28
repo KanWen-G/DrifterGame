@@ -5,7 +5,7 @@ function TextBox(game, index) {
         boundsAlignV: "top", 
         wordWrap: true, wordWrapWidth: 510 };
     //array to store all textBox dialogues
-    this.textLines = ['Letter P.', 'Letter A.', 'Letter S.'];
+    this.textLines = ['arrows or wasd to move/ jumP. hold shift to sPrint.', 'press spAcebAr to chAnge mindstAtes. you Are currently in the ego stAte. pressing spAcebAr would tAke you to the id stAte, thAt is more chAotic.', 'preSS f to interact with doorS. there iS a 3 character combination you muSt find.'];
 
 
     //Phaser.Sprite.call(this, game,x, y, index, 'TextBox');
@@ -22,8 +22,8 @@ function TextBox(game, index) {
    
 
     //game.time.events.add(0, fadeText, this);
-    this.fadeText1 = game.add.tween(this.currentText).to( { alpha: 0 }, Phaser.Timer.SECOND, Phaser.Easing.Linear.None, true);
-    this.fadeText2 = game.add.tween(this.currentTextBox).to( { alpha: 0 }, Phaser.Timer.SECOND, Phaser.Easing.Linear.None, true);
+    this.fadeText1 = game.add.tween(this.currentText).to( { alpha: 0 }, Phaser.Timer.SECOND, Phaser.Easing.Linear.None, false);
+    this.fadeText2 = game.add.tween(this.currentTextBox).to( { alpha: 0 }, Phaser.Timer.SECOND, Phaser.Easing.Linear.None, false);
     console.log('in TextBox');
 }
 

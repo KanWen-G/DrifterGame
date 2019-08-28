@@ -89,10 +89,10 @@ tutorial.prototype = {    create: function () {
 
 update: function () {
     islock = false;
-    this.block.debug = true;
+    //this.block.debug = true;
     map.setCollisionBetween(0 ,400, false, this.block); //collision for platforms in state 2
     this.cantSwitch = false;
-    game.debug.body(p);
+    //game.debug.body(p);
     game.physics.arcade.collide(p, this.state1);
     game.physics.arcade.collide(p, this.state2);
     game.physics.arcade.collide(p, this.Background);

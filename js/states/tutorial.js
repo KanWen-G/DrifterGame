@@ -31,7 +31,6 @@ tutorial.prototype = {    create: function () {
     map.setCollisionBetween(120, 150, false, this.state2); //collision for platforms in state 1
     map.setCollisionBetween(380, 385, false, this.state2); //collision for platforms in state 2
     map.setCollisionBetween(0 ,400, true, this.block); //collision for platforms in state 2
-    
     for(var i = 0; i < 400; i ++){
         map.setTileIndexCallback(i, this.onblock, this, this.block);
     }

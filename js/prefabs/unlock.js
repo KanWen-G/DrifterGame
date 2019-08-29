@@ -1,8 +1,9 @@
 function unlocking(word){
 
     if(game.input.keyboard.justPressed(Phaser.Keyboard.ENTER)){
-        this.lock = game.add.sprite(game.camera.x + 300, 150, 'lock');
+        this.lock = game.add.sprite(game.camera.x + 300, game.camera.y + 150, 'lock');
         this.lock.animations.add('error', [0,1], 14, true, true);
+        game.world.bringToTop(this.lock);
         this.frame = 0;
         isLock = false;
         this.lockedSound = game.add.audio('Locked');
@@ -25,7 +26,7 @@ this.lock.animations.stop()
 }
 
 function killLock(){
-this.lock.kill();
+this.lock.alpha = 0;;
 }
 
 function keyPress (char){ 

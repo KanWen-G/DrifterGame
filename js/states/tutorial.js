@@ -5,8 +5,6 @@ tutorial.prototype = {    create: function () {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     console.log('Play: arcade physics enable');
     this.currentMessage;
-    this.count = 0;
-    this.locked = false;
     //creating background
     map = game.add.tilemap('tutorial');
     map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
@@ -31,10 +29,8 @@ tutorial.prototype = {    create: function () {
     map.setCollisionBetween(340, 345, true, this.state1); //collision for platforms in state 1
     map.setCollisionBetween(120, 150, false, this.state2); //collision for platforms in state 1
     map.setCollisionBetween(380, 385, false, this.state2); //collision for platforms in state 2
-    map.setCollisionBetween(0 ,400, true, this.block); //collision for platforms in state 2
-    for(var i = 0; i < 400; i ++){
-        map.setTileIndexCallback(i, this.onblock, this, this.block);
-    }
+    map.setCollisionBetween(207, true, this.block); //collision for platforms in state 
+    map.setTileIndexCallback(207, this.onblock, this, this.block);
     
     map.setTileLocationCallback(2, 28, 1, 1, this.makeText, this, this.state1);
     map.setTileLocationCallback(27, 28, 1, 1, this.makeText2, this, this.state1);
@@ -90,9 +86,10 @@ tutorial.prototype = {    create: function () {
 },
 
 update: function () {
+    
     islock = false;
     //this.block.debug = true;
-    map.setCollisionBetween(0 ,400, false, this.block); //collision for platforms in state 2
+    map.setCollisionBetween(207, false, this.block); //collision for platforms in state 2
     this.cantSwitch = false;
     //game.debug.body(p);
     game.physics.arcade.collide(p, this.state1);
@@ -166,7 +163,6 @@ makeText3: function(){
 },
 
 onblock: function(){
-    console.log(132156614651);
     this.cantSwitch = true;
 },
 

@@ -15,36 +15,42 @@ play.prototype = {
         this.idState = map.createLayer('World2');
         this.itemsEgo = map.createLayer('Items');
         this.itemsId = map.createLayer('Items2');
-        this.door1 = map.createLayer('Door1');
         this.door2 = map.createLayer('Door2');
+        this.block = map.createLayer('block');
+        this.door1 = map.createLayer('Door1');
+        this.cantSwitch = false;
+        this.block.alpha = 0;
+        map.setCollisionBetween(205 ,207, false, this.block);//collision for platforms in state 2
+        map.setTileIndexCallback(207, this.onblock, this, this.block);
+
         game.physics.arcade.enable(this.egoState);
         game.physics.arcade.enable(this.idState);
+        game.physics.arcade.enable(this.block);
+        game.physics.arcade.enable(this.door1);
 
-        map.setTileSize(32,32);
+        map.setCollisionBetween(115, 187, true, this.egoState); //collisionstate 1
+        map.setCollisionBetween(340, 345, true, this.egoState);
+        map.setCollisionBetween(380, 385, true, this.egoState);
+        map.setCollisionBetween(354, 359, true, this.egoState);
+        map.setCollisionBetween(115, 187, false, this.idState); //collisionstate 2
+        map.setCollisionBetween(340, 345, false, this.idState);
+        map.setCollisionBetween(380, 385, false, this.idState);
+        map.setCollisionBetween(354, 359, false, this.idState);
+        map.setCollision(310,true, this.door1);
+        map.setCollision(330,true, this.door1);
+        map.setCollision(350,true, this.door1);
 
-        map.setCollisionBetween(162, 165, true, this.egoState); //collision for black blocks in state 1
-        map.setCollisionBetween(182, 185, true, this.egoState); //collision for black blocks in state 1
-
-        map.setCollisionBetween(163, 164, false, this.idState); //collision for black blocks in state 2
-        map.setCollisionBetween(182, 185, false, this.idState); //collision for black blocks in state 2
-
-        map.setCollisionBetween(163, 164, true, this.Background); //collision for black blocks in Background
-        map.setCollisionBetween(182, 185, true, this.Background); //collision for black blocks in Background
-
-        map.setCollisionBetween(340, 345, true, this.egoState); //collision for platforms in state 1
-        map.setCollisionBetween(380, 385, true, this.egoState); //collision for platforms in state 1
-
-        map.setCollisionBetween(354, 359, false, this.idState); //collision for platforms in state 2
-        map.setCollisionBetween(314, 319, false, this.idState); //collision for platforms in state 2
-
-        map.setTileLocationCallback(66, 95, 1, 1, this.lock1, this, this.door1);
         
 
         //map.setTileLocationCallback(51, 108, 1, 1, this.makeText0, this, this.itemsEgo);
         //map.setTileLocationCallback(37, 95, 1, 1, this.makeText1, this, this.egoState);
         //map.setTileLocationCallback(60, 95, 1, 1, this.makeText2, this, this.idState);
-        map.setTileLocationCallback(51, 108, 1, 1, this.makeText, this, this.itemsId);
-
+        map.setTileLocationCallback(51, 108, 1, 1, this.makeText, this, this.egoState);
+        map.setTileLocationCallback(2, 87, 1, 1, this.makeText1, this, this.egoState);
+        map.setTileLocationCallback(60, 96, 1, 1, this.makeText2, this, this.egoState);
+        map.setTileLocationCallback(36, 84, 1, 1, this.makeText3, this, this.egoState);
+        map.setTileLocationCallback(66, 96, 1, 1, this.lock1, this, this.egoState);
+        
         this.haveText = false;
         this.idState.alpha = 0;
         this.egoState.resizeWorld();
@@ -107,15 +113,13 @@ play.prototype = {
     },
     
     update: function () {
-        //game.debug.body(p);
+        game.debug.body(p);
+        this.cantSwitch = false;
+        game.physics.arcade.collide(p, this.block);
         game.physics.arcade.collide(p, this.egoState);
         game.physics.arcade.collide(p, this.idState);
         game.physics.arcade.collide(p, this.Background);
-
-        //game.physics.arcade.collide(spotLight, this.egoState);
-        //game.physics.arcade.collide(spotLight, this.idState);
-        //game.physics.arcade.collide(spotLight, this.Background);
-
+        game.physics.arcade.collide(p, this.door1);
         if(p.body.velocity.x != 0 && this.haveText){
             console.log('something');
             this.currentMessage.fadeText1.start();
@@ -123,7 +127,7 @@ play.prototype = {
             this.haveText = false;
         }
         
-        if (!p.pause && game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
+        if (!p.pause && game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && !this.cantSwitch) {
             this.switchSelf();
         }
     
@@ -136,17 +140,14 @@ play.prototype = {
              console.log('inEgo');
 
                 //code to turn collision on/off for different layers
+                map.setCollisionBetween(115, 187, true, this.egoState); //collisionstate 1
                 map.setCollisionBetween(340, 345, true, this.egoState);
                 map.setCollisionBetween(380, 385, true, this.egoState);
-             
-                map.setCollisionBetween(162, 165, true, this.egoState);
-                map.setCollisionBetween(182, 185, true, this.egoState);
-
-                map.setCollisionBetween(354, 359, false, this.idState); //collision for platforms in state 2
-                map.setCollisionBetween(314, 319, false, this.idState); //collision for platforms in state 2
-
-                map.setCollisionBetween(162, 165, false, this.idState);
-                map.setCollisionBetween(182, 185, false, this.idState);
+                map.setCollisionBetween(354, 359, true, this.egoState);
+                map.setCollisionBetween(115, 187, false, this.idState); //collisionstate 2
+                map.setCollisionBetween(340, 345, false, this.idState);
+                map.setCollisionBetween(380, 385, false, this.idState);
+                map.setCollisionBetween(354, 359, false, this.idState);
 
                 //code to turn on/off visual appearance of layers
                 this.egoMapOn.start();
@@ -161,17 +162,14 @@ play.prototype = {
                 console.log('inId');
 
                 //code to turn collision on/off for different layers
-                map.setCollisionBetween(354, 359, true, this.idState); //collision for platforms in state 2
-                map.setCollisionBetween(314, 319, true, this.idState); //collision for platforms in state 2
-
-                map.setCollisionBetween(162, 165, true, this.idState);
-                map.setCollisionBetween(182, 185, true, this.idState);
-
+                map.setCollisionBetween(115, 187, false, this.egoState); //collisionstate 1
                 map.setCollisionBetween(340, 345, false, this.egoState);
                 map.setCollisionBetween(380, 385, false, this.egoState);
-
-                map.setCollisionBetween(162, 165, false, this.egoState);
-                map.setCollisionBetween(182, 185, false, this.egoState);
+                map.setCollisionBetween(354, 359, false, this.egoState);
+                map.setCollisionBetween(115, 187, true, this.idState); //collisionstate 2
+                map.setCollisionBetween(340, 345, true, this.idState);
+                map.setCollisionBetween(380, 385, true, this.idState);
+                map.setCollisionBetween(354, 359, true, this.idState);
 
                 //code to turn on/off visual appearance of layers
                 this.egoMapOff.start();
@@ -187,21 +185,42 @@ play.prototype = {
     },
     
     makeText: function(){
-        if(!this.haveText && this.itemsId.alpha != 0){
+        if(!this.haveText && this.egoState.alpha != 0){
+            this.currentMessage = new TextBox(game, 0);
+            this.haveText = true;
+        }
+    },
+    makeText1: function(){
+        if(!this.haveText && this.egoState.alpha != 0){
+            this.currentMessage = new TextBox(game, 0);
+            this.haveText = true;
+        }
+    },
+    makeText2: function(){
+        if(!this.haveText && this.egoState.alpha != 0){
+            this.currentMessage = new TextBox(game, 0);
+            this.haveText = true;
+        }
+    },
+    makeText3: function(){
+        if(!this.haveText && this.idState.alpha != 0){
             this.currentMessage = new TextBox(game, 0);
             this.haveText = true;
         }
     },
     
-    
+    onblock: function(){
+        this.cantSwitch = true;
+    },
+
     lock1: function(){
         if(!this.inId){
             unlocking('sap');
             if(isLock){    
-                map.setCollision(309,false, this.door);
-                map.setCollision(329,false, this.door);
-                map.setCollision(349,false, this.door);
-                this.door.alpha = 0;
+                map.setCollision(310,false, this.door1);
+                map.setCollision(330,false, this.door1);
+                map.setCollision(350,false, this.door1);
+                this.door1.kill();
             }
         }
     }, 

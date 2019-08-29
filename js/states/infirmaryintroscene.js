@@ -1,5 +1,4 @@
-// Intro Cutscene state
-
+// Intro Cutscene state 2
 
 var infirmaryintroscene = function(game) {};
 infirmaryintroscene.prototype = {
@@ -28,7 +27,7 @@ infirmaryintroscene.prototype = {
         wordWrap: true, wordWrapWidth: 600 };
 
         //creating first scene
-        this.frame1 = game.add.sprite(game.world.centerX, game.world.centerY, 'infirmaryScene');
+        this.frame1 = game.add.sprite(game.camera.x + 400, game.camera.y + 300, 'infirmaryScene');
         this.frame1.anchor.setTo(0.5,0.5);
         this.frame1.alpha = 0;
         //setting background to black for fade in effect
@@ -42,7 +41,7 @@ infirmaryintroscene.prototype = {
     },
     update: function() {
         if(this.firstTextDone1){
-            this.nextQuote2 = game.add.text(game.world.centerX, game.world.centerY + 150, "Press SPACE to continue.", {font: "12px Arial", fill: "#ffffff"});
+            this.nextQuote2 = game.add.text(game.camera.x + 400, game.camera.y + 300 + 150, "Press SPACE to continue.", {font: "12px Arial", fill: "#ffffff"});
             this.nextQuote2.anchor.setTo(0.5, 0.5);
             this.nextQuote2.alpha = 0;
             this.flashNext = game.add.tween(this.nextQuote2).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true, 0, 1000, true).loop(true);
@@ -55,7 +54,7 @@ infirmaryintroscene.prototype = {
     },
     firstLine: function(){
         
-        this.textBack = game.add.sprite(game.world.centerX, game.world.centerY, 'blackLayer');
+        this.textBack = game.add.sprite(game.camera.x + 400, game.camera.y + 300, 'blackLayer');
         this.textBack.anchor.setTo(0.5, 0.5);
         this.textBack.alpha = 0;
 
@@ -66,13 +65,12 @@ infirmaryintroscene.prototype = {
 
     },
     makeIntroSceneText4: function(){
-        this.text4 = game.add.text(game.world.centerX, game.world.centerY , '', this.introTextStyle2);
+        this.text4 = game.add.text(game.camera.x + 400, game.camera.y + 300 , '', this.introTextStyle2);
         this.text4.anchor.setTo(0.5,0.5);
 
         this.nextLine4();
     },
     nextLine4: function() {
-        console.log('in nextLine4')
         if (this.lineIndex4 === this.content4.length)
         {
             this.firstTextDone1 = true;
@@ -104,6 +102,6 @@ infirmaryintroscene.prototype = {
     },
     startGame: function(){
         game.sound.stopAll();
-        game.state.start('tutorial');
+        game.state.start('petertalks');
     }
 }

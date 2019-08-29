@@ -37,7 +37,7 @@ function create() {
 
     game.stage.backgroundColor = "#000000";
 
-    text = game.add.text(game.world.centerX, game.world.centerY , '', introTextStyle);
+    text = game.add.text(game.camera.x + 400, game.camera.y + 300 , '', introTextStyle);
     text.anchor.setTo(0.5,0.5);
 
     //text.setTextBounds(20, 20, 780, 580);

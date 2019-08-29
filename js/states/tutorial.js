@@ -177,7 +177,8 @@ lock1: function(){
             map.setCollision(309,false, this.door);
             map.setCollision(329,false, this.door);
             map.setCollision(349,false, this.door);
-            this.door.alpha = 0;
+            this.door.kill();
+            map.setTileLocationCallback(67, 28, 1, 1, null, this, this.state1);
         }
     }
 },

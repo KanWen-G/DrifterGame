@@ -5,7 +5,7 @@ function TextBox(game, index) {
         boundsAlignV: "top", 
         wordWrap: true, wordWrapWidth: 510 };
     //array to store all textBox dialogues
-    this.textLines = ['Move the subject by using the ‘WASD’ keys or the arrow keys, with uP and ‘W’ making your character jumP. Hold ‘SHIFT’ while moving to sPrint.', 'Press ‘SPACE’ to switch between the ego and id stAtes of your subject’s mind. The ego stAte is A perception of reAlity and truth, thus is orderly. The id stAte is your subject’s bAse desires and emotions, mAking it more chAotic.', 'DoorS can be opened with the correct input of letterS to make a paSSword. You can find the clueS to what theSe letterS are hidden in the noteS found in the ego State. PreSS ‘f’ to interact with the door to attempt to unlock it.'];
+    this.textLines = ['Move the subject by using the ‘WASD’ keys or the arrow keys, with uP and ‘W’ making your character jumP. Hold ‘SHIFT’ while moving to sPrint.', 'Press ‘SPACE’ to switch between the ego and id stAtes of your subject’s mind. The ego stAte is A perception of reAlity and truth, thus is orderly. The id stAte is your subject’s bAse desires and emotions, mAking it more chAotic.', 'DoorS can be opened with the correct input of letterS to make a paSSword. You can find the clueS to what theSe letterS are hidden in the noteS found in the ego State. PreSS "ENTER" to attempt to unlock the door, and "f" to exit the unlock attempt.'];
 
 
     //Phaser.Sprite.call(this, game,x, y, index, 'TextBox');

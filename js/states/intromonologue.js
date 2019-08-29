@@ -14,7 +14,11 @@ var content = [
     "It takes in reality, and reigns in our desires for logical views and decisions.",
     " It often mediates between the id and the superego, the moral compass of our conscious that tries to make us do the right thing.",
     "",
-    "I don’t get to deal with that part very often in my line of work."
+    "I don’t get to deal with that part very often in my line of work.",
+    "",
+    "",
+    "",
+    "Press SPACE to continue."
 ];
 
 var line = [];

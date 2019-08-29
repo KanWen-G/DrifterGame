@@ -17,6 +17,7 @@ window.onload = function() {
     game.state.add('load', load);
     game.state.add('intromonologue', intromonologue);
     game.state.add('introscene', introscene);
+    game.state.add('petertalks', petertalks);
     game.state.add('infirmaryintroscene', infirmaryintroscene);
     game.state.add('title', title);
     game.state.add('tutorial', tutorial);

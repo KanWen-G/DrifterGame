@@ -316,8 +316,9 @@ play.prototype = {
     lock3: function(){
         if(!this.inId){
             unlocking('ego');
-            if(isLock == 4){    
-                game.state.start('load',true,true);
+            if(isLock == 4){   
+                game.sound.stopAll(); 
+                game.state.start('gameOver');
                 }
             }
     }, 

@@ -5,14 +5,12 @@ tutorial.prototype = {    create: function () {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     console.log('Play: arcade physics enable');
     this.currentMessage;
-    this.count = 0;
-    this.locked = false;
     //creating background
     map = game.add.tilemap('tutorial');
     map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
     this.Background = map.createLayer('Background');
-    this.state1 = map.createLayer('World1');
-    this.state2 = map.createLayer('World2');
+    this.egoState = map.createLayer('World1');
+    this.idState = map.createLayer('World2');
     this.door = map.createLayer('door');
     this.items = map.createLayer('Items');
     this.items2 = map.createLayer('Items2');
@@ -20,43 +18,48 @@ tutorial.prototype = {    create: function () {
     this.block.alpha = 0;
     this.items2.alpha = 0;
     game.physics.arcade.enable(this.items);
-    game.physics.arcade.enable(this.state1);
-    game.physics.arcade.enable(this.state2);
+    game.physics.arcade.enable(this.egoState);
+    game.physics.arcade.enable(this.idState);
     game.physics.arcade.enable(this.block);
     this.cantSwitch = false;
     map.setCollision(309,true, this.door);
     map.setCollision(329,true, this.door);
     map.setCollision(349,true, this.door);
-    map.setCollisionBetween(120, 150, true, this.state1); //collision for platforms in state 1
-    map.setCollisionBetween(340, 345, true, this.state1); //collision for platforms in state 1
-    map.setCollisionBetween(120, 150, false, this.state2); //collision for platforms in state 1
-    map.setCollisionBetween(380, 385, false, this.state2); //collision for platforms in state 2
-    map.setCollisionBetween(0 ,400, true, this.block); //collision for platforms in state 2
-    for(var i = 0; i < 400; i ++){
-        map.setTileIndexCallback(i, this.onblock, this, this.block);
-    }
+
+    map.setCollisionBetween(115, 187, true, this.egoState); //collisionstate 1
+    map.setCollisionBetween(340, 345, true, this.egoState);
+    map.setCollisionBetween(380, 385, true, this.egoState);
+    map.setCollisionBetween(354, 359, true, this.egoState);
+    map.setCollisionBetween(115, 187, false, this.idState); //collisionstate 2
+    map.setCollisionBetween(340, 345, false, this.idState);
+    map.setCollisionBetween(380, 385, false, this.idState);
+    map.setCollisionBetween(354, 359, false, this.idState);
+
+
+    map.setCollisionBetween(207, true, this.block); //collision for platforms in state 
+    map.setTileIndexCallback(207, this.onblock, this, this.block);
     
-    map.setTileLocationCallback(2, 28, 1, 1, this.makeText, this, this.state1);
-    map.setTileLocationCallback(27, 28, 1, 1, this.makeText2, this, this.state1);
-    map.setTileLocationCallback(66, 28, 1, 1, this.makeText3, this, this.state1);
-    map.setTileLocationCallback(67, 28, 1, 1, this.lock1, this, this.state1);
-    map.setTileLocationCallback(69, 28, 1, 1, this.nextlevel, this, this.state1);
+    map.setTileLocationCallback(2, 28, 1, 1, this.makeText, this, this.egoState);
+    map.setTileLocationCallback(27, 28, 1, 1, this.makeText2, this, this.egoState);
+    map.setTileLocationCallback(66, 28, 1, 1, this.makeText3, this, this.egoState);
+    map.setTileLocationCallback(67, 28, 1, 1, this.lock1, this, this.egoState);
+    map.setTileLocationCallback(69, 28, 1, 1, this.nextlevel, this, this.egoState);
     //map.setTileLocationCallback(60, 95, 1, 1, this.lock1, this, this.state1);
     //map.setTileLocationCallback(19, 7, 1, 1, this.makeText, this, this.layer);
 
     this.haveText = false;
-    this.state2.alpha = 0;
-    this.state1.resizeWorld();
+    this.idState.alpha = 0;
+    this.egoState.resizeWorld();
     this.inId = false;
-    this.toEgo1 = game.add.tween(this.state1).to({alpha : 1 },100, "Linear", false, 0, 0);
-    this.toEgo2 = game.add.tween(this.state2).to({alpha : 0 },100, "Linear", false, 0, 0);
+    this.toEgo1 = game.add.tween(this.egoState).to({alpha : 1 },100, "Linear", false, 0, 0);
+    this.toEgo2 = game.add.tween(this.idState).to({alpha : 0 },100, "Linear", false, 0, 0);
     this.toEgo3 = game.add.tween(this.items).to({alpha : 1 },100, "Linear", false, 0, 0);
     this.toEgo4 = game.add.tween(this.items2).to({alpha : 0 },100, "Linear", false, 0, 0);
     this.toEgo5 = game.add.tween(this.door).to({alpha : 1 },100, "Linear", false, 0, 0);
     this.toId5 = game.add.tween(this.door).to({alpha : 0 },100, "Linear", false, 0, 0);
 
-    this.toId1 = game.add.tween(this.state1).to({alpha : 0 },100, "Linear", false, 0, 0);
-    this.toId2 = game.add.tween(this.state2).to({alpha : 1 },100, "Linear", false, 0, 0);
+    this.toId1 = game.add.tween(this.egoState).to({alpha : 0 },100, "Linear", false, 0, 0);
+    this.toId2 = game.add.tween(this.idState).to({alpha : 1 },100, "Linear", false, 0, 0);
     this.toId3 = game.add.tween(this.items).to({alpha : 0 },100, "Linear", false, 0, 0);
     this.toId4 = game.add.tween(this.items2).to({alpha : 1 },100, "Linear", false, 0, 0);
 
@@ -90,13 +93,13 @@ tutorial.prototype = {    create: function () {
 },
 
 update: function () {
-    islock = false;
+    console.log(isLock);
     //this.block.debug = true;
-    map.setCollisionBetween(0 ,400, false, this.block); //collision for platforms in state 2
+    map.setCollisionBetween(207, false, this.block); //collision for platforms in state 2
     this.cantSwitch = false;
     //game.debug.body(p);
-    game.physics.arcade.collide(p, this.state1);
-    game.physics.arcade.collide(p, this.state2);
+    game.physics.arcade.collide(p, this.idState);
+    game.physics.arcade.collide(p, this.egoState);
     game.physics.arcade.collide(p, this.Background);
     game.physics.arcade.collide(p, this.block);
     game.physics.arcade.collide(p, this.door);
@@ -115,10 +118,14 @@ update: function () {
  switchSelf: function(){
          if (this.inId){
          console.log('inEgo');
-         map.setCollisionBetween(120, 150, true, this.state1); //collision for platforms in state 1
-         map.setCollisionBetween(340, 345, true, this.state1); //collision for platforms in state 1
-         map.setCollisionBetween(120, 150, false, this.state2); //collision for platforms in state 1
-         map.setCollisionBetween(380, 385, false, this.state2); //collision for platforms in state 2
+         map.setCollisionBetween(115, 187, true, this.egoState); //collisionstate 1
+         map.setCollisionBetween(340, 345, true, this.egoState);
+         map.setCollisionBetween(380, 385, true, this.egoState);
+         map.setCollisionBetween(354, 359, true, this.egoState);
+         map.setCollisionBetween(115, 187, false, this.idState); //collisionstate 2
+         map.setCollisionBetween(340, 345, false, this.idState);
+         map.setCollisionBetween(380, 385, false, this.idState);
+         map.setCollisionBetween(354, 359, false, this.idState);
 
          this.toEgo1.start();
          this.toEgo2.start();
@@ -130,10 +137,14 @@ update: function () {
          this.switchSound1.play();
          }else{
         console.log('inId');
-        map.setCollisionBetween(120, 150, false, this.state1); //collision for platforms in state 1
-        map.setCollisionBetween(340, 345, false, this.state1); //collision for platforms in state 1
-        map.setCollisionBetween(120, 150, true, this.state2); //collision for platforms in state 1
-        map.setCollisionBetween(380, 385, true, this.state2); //collision for platforms in state 2
+        map.setCollisionBetween(115, 187, false, this.egoState); //collisionstate 1
+        map.setCollisionBetween(340, 345, false, this.egoState);
+        map.setCollisionBetween(380, 385, false, this.egoState);
+        map.setCollisionBetween(354, 359, false, this.egoState);
+        map.setCollisionBetween(115, 187, true, this.idState); //collisionstate 2
+        map.setCollisionBetween(340, 345, true, this.idState);
+        map.setCollisionBetween(380, 385, true, this.idState);
+        map.setCollisionBetween(354, 359, true, this.idState);
         
         this.toId1.start();
         this.toId2.start();
@@ -166,19 +177,18 @@ makeText3: function(){
 },
 
 onblock: function(){
-    console.log(132156614651);
     this.cantSwitch = true;
 },
 
 lock1: function(){
     if(!this.inId){
         unlocking('pas');
-        if(isLock){    
+        if(isLock == 1){    
             map.setCollision(309,false, this.door);
             map.setCollision(329,false, this.door);
             map.setCollision(349,false, this.door);
             this.door.kill();
-            map.setTileLocationCallback(67, 28, 1, 1, null, this, this.state1);
+            map.setTileLocationCallback(67, 28, 1, 1, null, this, this.egoState);
         }
     }
 },
@@ -190,6 +200,7 @@ nextlevel: function(){
 
 startPlay: function(){
     game.state.start('play', true);
+    game.sound.stopAll();
 }
 
 

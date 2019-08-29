@@ -11,6 +11,7 @@ preload: function() {
     game.load.image('filter', 'assets/img/filter.png');
     game.load.image('blackLayer', 'assets/img/BlackScreen.png');
     game.load.image('textBox', 'assets/img/TextBox.png');
+    game.load.image('textBox2', 'assets/img/TextBox2.png');
     game.load.image('screenfilter', 'assets/img/screenfilter1.png');
     game.load.image('title', 'assets/img/DrifterTitle.png');
     game.load.image('infirmaryScene', 'assets/img/PoliceInfirmary.png');

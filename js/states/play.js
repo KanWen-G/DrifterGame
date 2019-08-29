@@ -216,7 +216,7 @@ play.prototype = {
     lock1: function(){
         if(!this.inId){
             unlocking('sap');
-            if(isLock){    
+            if(isLock == 2){    
                 map.setCollision(310,false, this.door1);
                 map.setCollision(330,false, this.door1);
                 map.setCollision(350,false, this.door1);

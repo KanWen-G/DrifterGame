@@ -86,8 +86,7 @@ tutorial.prototype = {    create: function () {
 },
 
 update: function () {
-    
-    islock = false;
+    console.log(isLock);
     //this.block.debug = true;
     map.setCollisionBetween(207, false, this.block); //collision for platforms in state 2
     this.cantSwitch = false;
@@ -169,7 +168,7 @@ onblock: function(){
 lock1: function(){
     if(!this.inId){
         unlocking('pas');
-        if(isLock){    
+        if(isLock == 1){    
             map.setCollision(309,false, this.door);
             map.setCollision(329,false, this.door);
             map.setCollision(349,false, this.door);

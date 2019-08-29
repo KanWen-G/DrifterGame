@@ -1,6 +1,6 @@
 function unlocking(word){
 
-        if(game.input.keyboard.justPressed(Phaser.Keyboard.F) && lockConuter){
+        if(game.input.keyboard.justPressed(Phaser.Keyboard.F) && lockCounter){
             this.lock = game.add.sprite(game.camera.x + 300, 150, 'lock');
             this.lock.animations.add('error', [0,1], 14, true, true);
             this.frame = 0;
@@ -15,11 +15,11 @@ function unlocking(word){
             p.pause = true;
             lockCounter = true;
             game.input.keyboard.addCallbacks(this, null, null, this.keyPress);
-        }else if (game.input.keyboard.justPressed(Phaser.Keyboard.F) && !lockConuter){
+        }else if (game.input.keyboard.justPressed(Phaser.Keyboard.F) && !lockCounter){
             p.pause = false;
             game.input.keyboard.removeCallbacks();
             game.time.events.add(300, killLock, this);
-            lockConuter = true;
+            lockCounter = true;
         }
     
     }

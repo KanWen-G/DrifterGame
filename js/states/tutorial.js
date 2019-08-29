@@ -129,6 +129,7 @@ update: function () {
         map.setCollisionBetween(340, 345, false, this.state1); //collision for platforms in state 1
         map.setCollisionBetween(120, 150, true, this.state2); //collision for platforms in state 1
         map.setCollisionBetween(380, 385, true, this.state2); //collision for platforms in state 2
+        this.toId1.start();
         this.toId2.start();
         this.toId3.start();
         this.toId4.start();

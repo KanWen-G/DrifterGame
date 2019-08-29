@@ -204,73 +204,73 @@ play.prototype = {
     
     makeText: function(){
         if(!this.haveText && this.egoState.alpha != 0){
-            this.currentMessage = new TextBox(game, 0);
+            this.currentMessage = new TextBox(game, 3);
             this.haveText = true;
         }
     },
     makeText1: function(){
         if(!this.haveText && this.idState.alpha != 0){
-            this.currentMessage = new TextBox(game, 0);
+            this.currentMessage = new TextBox(game, 6);
             this.haveText = true;
         }
     },
     makeText2: function(){
         if(!this.haveText && this.egoState.alpha != 0){
-            this.currentMessage = new TextBox(game, 0);
+            this.currentMessage = new TextBox(game, 5);
             this.haveText = true;
         }
     },
     makeText3: function(){
         if(!this.haveText && this.egoState.alpha != 0){
-            this.currentMessage = new TextBox(game, 0);
+            this.currentMessage = new TextBox(game, 4);
             this.haveText = true;
         }
     },
     makeText4: function(){
         if(!this.haveText && this.egoState.alpha != 0){
-            this.currentMessage = new TextBox(game, 0);
+            this.currentMessage = new TextBox(game, 7);
             this.haveText = true;
         }
     },
     makeText5: function(){
         if(!this.haveText && this.egoState.alpha != 0){
-            this.currentMessage = new TextBox(game, 0);
+            this.currentMessage = new TextBox(game, 8);
             this.haveText = true;
         }
     },
     makeText6: function(){
         if(!this.haveText && this.idState.alpha != 0){
-            this.currentMessage = new TextBox(game, 0);
+            this.currentMessage = new TextBox(game, 9);
             this.haveText = true;
         }
     },
     makeText7: function(){
         if(!this.haveText && this.egoState.alpha != 0){
-            this.currentMessage = new TextBox(game, 0);
+            this.currentMessage = new TextBox(game, 10);
             this.haveText = true;
         }
     },
     makeText8: function(){
         if(!this.haveText && this.egoState.alpha != 0){
-            this.currentMessage = new TextBox(game, 0);
+            this.currentMessage = new TextBox(game, 11);
             this.haveText = true;
         }
     },
     makeText9: function(){
         if(!this.haveText && this.idState.alpha != 0){
-            this.currentMessage = new TextBox(game, 0);
+            this.currentMessage = new TextBox(game, 12);
             this.haveText = true;
         }
     },
     makeText10: function(){
         if(!this.haveText && this.egoState.alpha != 0){
-            this.currentMessage = new TextBox(game, 0);
+            this.currentMessage = new TextBox(game, 13);
             this.haveText = true;
         }
     },
     makeText11: function(){
         if(!this.haveText && this.egoState.alpha != 0){
-            this.currentMessage = new TextBox(game, 0);
+            this.currentMessage = new TextBox(game, 14);
             this.haveText = true;
         }
     },
@@ -281,18 +281,18 @@ play.prototype = {
 
     lock1: function(){
         if(!this.inId){
-            unlocking('sap');
+            unlocking('min');
             if(isLock == 2){    
                 this.door1.kill();
             }
         }
     }, 
 
-        lock2: function(){
-            if(!this.inId){
-                unlocking('iop');
-                if(isLock == 3){    
-                    this.door2.kill();
+    lock2: function(){
+        if(!this.inId){
+            unlocking('ego');
+            if(isLock == 3){    
+                this.door2.kill();
                 }
             }
     }, 

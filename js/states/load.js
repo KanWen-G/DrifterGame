@@ -10,6 +10,7 @@ preload: function() {
     game.load.spritesheet('lock', 'assets/Tiled/lock.png',200,200);
     game.load.image('filter', 'assets/img/filter.png');
     game.load.image('textBox', 'assets/img/TextBox.png');
+    game.load.image('textBox2', 'assets/img/TextBox2.png');
     game.load.image('screenfilter', 'assets/img/screenfilter1.png');
     game.load.audio('Game Music', 'assets/audio/In Game Music.ogg');
     game.load.audio('Cutscene Music', 'assets/audio/Cutscene Music.ogg');

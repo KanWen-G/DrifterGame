@@ -1,9 +1,5 @@
 function TextBox(game, index) {
-    this.textstyle = { font: "12px Helvetica", fill: "#000000", 
-        align: "left", // the alignment of the text is independent of the bounds, try changing to 'center' or 'right'
-        boundsAlignH: "left", 
-        boundsAlignV: "top", 
-        wordWrap: true, wordWrapWidth: 510 };
+
     //array to store all textBox dialogues
     this.textLines = ['Move the subject by using the ‘WASD’ keys or the arrow keys, with uP and ‘W’ making your character jumP. Hold ‘SHIFT’ while moving to sPrint.', 
     'Press ‘SPACE’ to switch between the ego and id stAtes of your subject’s mind. The ego stAte is A perception of reAlity and truth, thus is orderly. The id stAte is your subject’s bAse desires and emotions, mAking it more chAotic.', 
@@ -21,7 +17,12 @@ function TextBox(game, index) {
     'OctOber 3, 2005 \nLOcal resident and prisOn manager Peter HOOky was assaulted by a fOrmer prisOner whO had recently been put On parOle leave. The prisOner will remain unnamed, but stated tO the pOlice that he struck ‘for payback of the cruel and prejudiced way Peter treated him and Other inmates’ at the cOmplex. He cOntinued tO shOut insults at Mr. HOOky as he was arrested by pOlice.',
     'This world is filled with criminal filth. Too many innocent people suffer while they do nothing to help, just worry about their own selfish desires and hurt others to fulfill them. Those monsters should stay in the prisons they return to so often. Then maybe we could fix the world while they’re out of it.'
     ];
-
+    
+    this.textstyle = { font: "12px Helvetica", fill: "#000000", 
+        align: "left", // the alignment of the text is independent of the bounds, try changing to 'center' or 'right'
+        boundsAlignH: "left", 
+        boundsAlignV: "top", 
+        wordWrap: true, wordWrapWidth: 510 };
 
     //Phaser.Sprite.call(this, game,x, y, index, 'TextBox');
     this.currentTextBox = game.add.sprite(game.camera.x + 400, game.camera.y + 120, 'textBox');

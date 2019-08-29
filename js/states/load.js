@@ -9,8 +9,16 @@ preload: function() {
     game.load.image('tiles', 'assets/Tiled/super_mario.png');
     game.load.spritesheet('lock', 'assets/Tiled/lock.png',200,200);
     game.load.image('filter', 'assets/img/filter.png');
+    game.load.image('blackLayer', 'assets/img/BlackScreen.png');
     game.load.image('textBox', 'assets/img/TextBox.png');
     game.load.image('screenfilter', 'assets/img/screenfilter1.png');
+    game.load.image('title', 'assets/img/DrifterTitle.png');
+    game.load.image('infirmaryScene', 'assets/img/PoliceInfirmary.png');
+    game.load.image('lobbyScene', 'assets/img/PoliceLobby.png');
+    game.load.image('endScene1', 'assets/img/PoliceInfirmaryEnd1.png');
+    game.load.image('endScene2', 'assets/img/PoliceInfirmaryEnd2.png');
+
+
     game.load.audio('Game Music', 'assets/audio/In Game Music.ogg');
     game.load.audio('Cutscene Music', 'assets/audio/Cutscene Music.ogg');
     game.load.audio('Jump', 'assets/audio/Jump.ogg');

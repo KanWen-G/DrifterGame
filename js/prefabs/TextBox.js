@@ -27,6 +27,6 @@ function TextBox(game, index) {
     console.log('in TextBox');
 }
 
-// explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
+// explicitly define prefab's prototype (Phaser.Sprite) and constructor (TextBox)
 TextBox.prototype = Object.create(Phaser.Sprite.prototype);
 TextBox.prototype.constructor = TextBox;

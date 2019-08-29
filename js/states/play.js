@@ -20,6 +20,8 @@ play.prototype = {
         game.physics.arcade.enable(this.egoState);
         game.physics.arcade.enable(this.idState);
 
+        map.setTileSize(32,32);
+
         map.setCollisionBetween(162, 165, true, this.egoState); //collision for black blocks in state 1
         map.setCollisionBetween(182, 185, true, this.egoState); //collision for black blocks in state 1
 
@@ -35,10 +37,13 @@ play.prototype = {
         map.setCollisionBetween(354, 359, false, this.idState); //collision for platforms in state 2
         map.setCollisionBetween(314, 319, false, this.idState); //collision for platforms in state 2
 
-        map.setTileLocationCallback(36, 107, 1, 1, this.makeText(0), this, this.egoState);
-        map.setTileLocationCallback(37, 95, 1, 1, this.makeText(1), this, this.egoState);
-        map.setTileLocationCallback(60, 95, 1, 1, this.makeText(2), this, this.idState);
-        //map.setTileLocationCallback(19, 7, 1, 1, this.makeText, this, this.layer);
+        map.setTileLocationCallback(66, 95, 1, 1, this.lock1, this, this.door1);
+        
+
+        //map.setTileLocationCallback(51, 108, 1, 1, this.makeText0, this, this.itemsEgo);
+        //map.setTileLocationCallback(37, 95, 1, 1, this.makeText1, this, this.egoState);
+        //map.setTileLocationCallback(60, 95, 1, 1, this.makeText2, this, this.idState);
+        map.setTileLocationCallback(51, 108, 1, 1, this.makeText, this, this.itemsId);
 
         this.haveText = false;
         this.idState.alpha = 0;
@@ -112,7 +117,7 @@ play.prototype = {
         //game.physics.arcade.collide(spotLight, this.Background);
 
         if(p.body.velocity.x != 0 && this.haveText){
-            console.log('something')
+            console.log('something');
             this.currentMessage.fadeText1.start();
             this.currentMessage.fadeText2.start();
             this.haveText = false;
@@ -181,21 +186,25 @@ play.prototype = {
             }
     },
     
-    makeText: function(index){
-        this.currentMessage = new TextBox(game, index);
-        if(!this.haveText){
+    makeText: function(){
+        if(!this.haveText && this.itemsId.alpha != 0){
+            this.currentMessage = new TextBox(game, 0);
             this.haveText = true;
         }
     },
     
     
     lock1: function(){
-        unlocking('test');
-    },
-
-    
-    
-    
+        if(!this.inId){
+            unlocking('sap');
+            if(isLock){    
+                map.setCollision(309,false, this.door);
+                map.setCollision(329,false, this.door);
+                map.setCollision(349,false, this.door);
+                this.door.alpha = 0;
+            }
+        }
+    }, 
 };
 
 

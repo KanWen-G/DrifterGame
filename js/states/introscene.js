@@ -113,7 +113,7 @@ introscene.prototype = {
             this.nextQuote.text = "Press SPACE to continue.";
         }
         if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.firstTextDone) {
-            
+            this.firstTextDone = false;
             this.nextQuote.text = "";
             //this.flashNextOff.start();
             this.text2.kill();

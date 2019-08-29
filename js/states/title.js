@@ -5,9 +5,9 @@ title.prototype = {
 create: function() {
     // add title screen text
     game.stage.backgroundColor = "#ffffff";
-    
-    
-    var title = game.add.sprite(game.world.centerX, game.world.centerY, 'title');
+
+    game.camera.x + 400
+    var title = game.add.sprite(game.camera.x + 400, game.camera.x + 300, 'title');
     title.anchor.setTo(0.5, 0.5);
 
     this.gameMusic = game.add.audio('Game Music', 0.2);

@@ -317,7 +317,7 @@ play.prototype = {
         if(!this.inId){
             unlocking('ego');
             if(isLock == 4){    
-                game.state.start('title');
+                game.state.start('load',true,true);
                 }
             }
     }, 

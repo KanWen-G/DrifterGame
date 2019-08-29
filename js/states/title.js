@@ -18,7 +18,7 @@ create: function() {
 update: function() {
     // check for UP input
     if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
-        game.state.start('introscene');
+        game.state.start('intromonologue');
         this.gameMusic.stop();
     }
 },

@@ -138,7 +138,6 @@ play.prototype = {
     },
     
     update: function () {
-        game.debug.body(p);
         this.cantSwitch = false;
         game.physics.arcade.collide(p, this.block);
         game.physics.arcade.collide(p, this.egoState);
@@ -316,8 +315,8 @@ play.prototype = {
     lock3: function(){
         if(!this.inId){
             unlocking('ego');
-            if(isLock == 3){    
-                this.safe.kill();
+            if(isLock == 4){    
+                game.state.start('title');
                 }
             }
     }, 

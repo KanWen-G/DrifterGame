@@ -17,10 +17,12 @@ play.prototype = {
         this.itemsId = map.createLayer('Items2');
         this.door2 = map.createLayer('Door2');
         this.door1 = map.createLayer('Door1');
+        this.safe = map.createLayer('Safe');
         this.block = map.createLayer('block');
         
         this.cantSwitch = false;
         this.block.alpha = 0;
+        this.itemsId.alpha = 0;
         map.setCollisionBetween(205 ,207, false, this.block);//collision for platforms in state 2
         map.setTileIndexCallback(207, this.onblock, this, this.block);
 
@@ -28,6 +30,7 @@ play.prototype = {
         game.physics.arcade.enable(this.idState);
         game.physics.arcade.enable(this.block);
         game.physics.arcade.enable(this.door1);
+        game.physics.arcade.enable(this.safe);
         game.physics.arcade.enable(this.door2);
 
         map.setCollisionBetween(115, 187, true, this.egoState); //collisionstate 1
@@ -38,6 +41,7 @@ play.prototype = {
         map.setCollisionBetween(340, 345, false, this.idState);
         map.setCollisionBetween(380, 385, false, this.idState);
         map.setCollisionBetween(354, 359, false, this.idState);
+        map.setCollision(348,true, this.safe);
         map.setCollision(310,true, this.door1);
         map.setCollision(330,true, this.door1);
         map.setCollision(350,true, this.door1);
@@ -65,7 +69,7 @@ play.prototype = {
 
         map.setTileLocationCallback(66, 96, 1, 1, this.lock1, this, this.egoState);
         map.setTileLocationCallback(69, 67, 1, 1, this.lock2, this, this.egoState);
-
+        map.setTileLocationCallback(20, 52, 1, 1, this.lock3, this, this.egoState);
 
         
         this.haveText = false;
@@ -78,14 +82,18 @@ play.prototype = {
         this.idMapOff = game.add.tween(this.idState).to({alpha : 0 },100, "Linear", false, 0, 0);
         this.egoItemsOn = game.add.tween(this.itemsEgo).to({alpha : 1 },100, "Linear", false, 0, 0);
         this.idItemsOff = game.add.tween(this.itemsId).to({alpha : 0 },100, "Linear", false, 0, 0);
-
+        this.door2On = game.add.tween(this.door2).to({alpha : 1 },100, "Linear", false, 0, 0);
+        this.door1On = game.add.tween(this.door1).to({alpha : 1 },100, "Linear", false, 0, 0);
+        this.safeOn = game.add.tween(this.safe).to({alpha : 1 },100, "Linear", false, 0, 0);
 
         //tweens for switching from ego to id
         this.egoMapOff = game.add.tween(this.egoState).to({alpha : 0 },100, "Linear", false, 0, 0);
         this.idMapOn = game.add.tween(this.idState).to({alpha : 1 },100, "Linear", false, 0, 0);
         this.idItemsOn = game.add.tween(this.itemsId).to({alpha : 1 },100, "Linear", false, 0, 0);
         this.egoItemsOff = game.add.tween(this.itemsEgo).to({alpha : 0 },100, "Linear", false, 0, 0);
-
+        this.door2Off = game.add.tween(this.door2).to({alpha : 0 },100, "Linear", false, 0, 0);
+        this.door1Off = game.add.tween(this.door1).to({alpha : 0 },100, "Linear", false, 0, 0);
+        this.safeOff = game.add.tween(this.safe).to({alpha : 0 },100, "Linear", false, 0, 0);
 
         //adding music sprites
         //this.gameMusic = game.add.audio('Game Music', 0.2);
@@ -137,6 +145,7 @@ play.prototype = {
         game.physics.arcade.collide(p, this.idState);
         game.physics.arcade.collide(p, this.Background);
         game.physics.arcade.collide(p, this.door1);
+        game.physics.arcade.collide(p, this.safe);
         game.physics.arcade.collide(p, this.door2);
         if(p.body.velocity.x != 0 && this.haveText){
             console.log('something');
@@ -172,6 +181,10 @@ play.prototype = {
                 this.egoItemsOn.start();
                 this.idMapOff.start();
                 this.idItemsOff.start();
+                this.door2On.start();
+                this.door1On.start();
+                this.safeOn.start();
+        
                 this.inId = false;
                 p.inId = false;
                 this.switchSound1.play();
@@ -194,6 +207,9 @@ play.prototype = {
                 this.idMapOn.start();
                 this.egoItemsOff.start();
                 this.idItemsOn.start();
+                this.door2Off.start();
+                this.door1Off.start();
+                this.safeOff.start();
                 //updating variables
                 this.inId = true;
                 p.inId = true;
@@ -240,13 +256,13 @@ play.prototype = {
     },
     makeText6: function(){
         if(!this.haveText && this.idState.alpha != 0){
-            this.currentMessage = new TextBox(game, 9);
+            this.currentMessage = new TextBox(game, 10);
             this.haveText = true;
         }
     },
     makeText7: function(){
         if(!this.haveText && this.egoState.alpha != 0){
-            this.currentMessage = new TextBox(game, 10);
+            this.currentMessage = new TextBox(game, 9);
             this.haveText = true;
         }
     },
@@ -258,7 +274,7 @@ play.prototype = {
     },
     makeText9: function(){
         if(!this.haveText && this.idState.alpha != 0){
-            this.currentMessage = new TextBox(game, 12);
+            this.currentMessage = new TextBox(game, 14);
             this.haveText = true;
         }
     },
@@ -270,7 +286,7 @@ play.prototype = {
     },
     makeText11: function(){
         if(!this.haveText && this.egoState.alpha != 0){
-            this.currentMessage = new TextBox(game, 14);
+            this.currentMessage = new TextBox(game, 12);
             this.haveText = true;
         }
     },
@@ -290,9 +306,18 @@ play.prototype = {
 
     lock2: function(){
         if(!this.inId){
-            unlocking('ego');
+            unlocking('giv');
             if(isLock == 3){    
                 this.door2.kill();
+                }
+            }
+    }, 
+
+    lock2: function(){
+        if(!this.inId){
+            unlocking('ego');
+            if(isLock == 3){    
+                this.safe.kill();
                 }
             }
     }, 

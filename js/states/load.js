@@ -7,7 +7,7 @@ preload: function() {
     game.load.tilemap('tutorial', 'assets/Tiled/tutorial.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.spritesheet('player', 'assets/img/PeterSprites.png',32,64);
     game.load.image('tiles', 'assets/Tiled/super_mario.png');
-    game.load.spritesheet('lock', 'assets/Tiled/lock.png',128,128);
+    game.load.spritesheet('lock', 'assets/Tiled/lock.png',200,200);
     game.load.image('filter', 'assets/img/filter.png');
     game.load.image('textBox', 'assets/img/TextBox.png');
     game.load.image('screenfilter', 'assets/img/screenfilter1.png');

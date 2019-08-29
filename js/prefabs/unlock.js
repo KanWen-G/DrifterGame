@@ -3,6 +3,7 @@ function unlocking(word){
     if(counterF == false){
         if(game.input.keyboard.justPressed(Phaser.Keyboard.F)){
             this.lock = game.add.sprite(game.camera.x + 300, 150, 'lock');
+            this.lock.animations.add('error', [0,1], 5);
             //this.lock= game.add.sprite(this, game,game.camera.x + 400, game.camera.y, 'lock');
             this.frame = 0;
             isLock = false;
@@ -21,11 +22,10 @@ function unlocking(word){
 }
 
 function keyPress (char){ 
-    game.camera.shake(0.01, 10);
+
     if (this.attempt < this.word.length){
+        this.lock.animations.play('error');
         this.lockedSound.play();
-        this.frame++;
-        this.lock.frame = this.frame;
         this.theInput[this.attempt] = char;
         this.attempt++;
         

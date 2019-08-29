@@ -13,18 +13,21 @@ play.prototype = {
         this.Background = map.createLayer('Background');
         this.egoState = map.createLayer('World1');
         this.idState = map.createLayer('World2');
-        this.items = map.createLayer('Items');
+        this.itemsEgo = map.createLayer('Items');
+        this.itemsId = map.createLayer('Items2');
+        this.door1 = map.createLayer('Door1');
+        this.door2 = map.createLayer('Door2');
         game.physics.arcade.enable(this.egoState);
         game.physics.arcade.enable(this.idState);
 
-        map.setCollisionBetween(163, 164, true, this.egoState); //collision for black blocks in state 1
-        map.setCollisionBetween(183, 184, true, this.egoState); //collision for black blocks in state 1
+        map.setCollisionBetween(162, 165, true, this.egoState); //collision for black blocks in state 1
+        map.setCollisionBetween(182, 185, true, this.egoState); //collision for black blocks in state 1
 
         map.setCollisionBetween(163, 164, false, this.idState); //collision for black blocks in state 2
-        map.setCollisionBetween(183, 184, false, this.idState); //collision for black blocks in state 2
+        map.setCollisionBetween(182, 185, false, this.idState); //collision for black blocks in state 2
 
         map.setCollisionBetween(163, 164, true, this.Background); //collision for black blocks in Background
-        map.setCollisionBetween(183, 184, true, this.Background); //collision for black blocks in Background
+        map.setCollisionBetween(182, 185, true, this.Background); //collision for black blocks in Background
 
         map.setCollisionBetween(340, 345, true, this.egoState); //collision for platforms in state 1
         map.setCollisionBetween(380, 385, true, this.egoState); //collision for platforms in state 1
@@ -41,10 +44,19 @@ play.prototype = {
         this.idState.alpha = 0;
         this.egoState.resizeWorld();
         this.inId = false;
-        this.toEgo1 = game.add.tween(this.egoState).to({alpha : 1 },100, "Linear", false, 0, 0);
-        this.toEgo2 = game.add.tween(this.idState).to({alpha : 0 },100, "Linear", false, 0, 0);
-        this.toId1 = game.add.tween(this.egoState).to({alpha : 0 },100, "Linear", false, 0, 0);
-        this.toId2 = game.add.tween(this.idState).to({alpha : 1 },100, "Linear", false, 0, 0);
+        //tweens for switching from id to ego
+        this.egoMapOn = game.add.tween(this.egoState).to({alpha : 1 },100, "Linear", false, 0, 0);
+        this.idMapOff = game.add.tween(this.idState).to({alpha : 0 },100, "Linear", false, 0, 0);
+        this.egoItemsOn = game.add.tween(this.itemsEgo).to({alpha : 1 },100, "Linear", false, 0, 0);
+        this.idItemsOff = game.add.tween(this.itemsId).to({alpha : 0 },100, "Linear", false, 0, 0);
+
+
+        //tweens for switching from ego to id
+        this.egoMapOff = game.add.tween(this.egoState).to({alpha : 0 },100, "Linear", false, 0, 0);
+        this.idMapOn = game.add.tween(this.idState).to({alpha : 1 },100, "Linear", false, 0, 0);
+        this.idItemsOn = game.add.tween(this.itemsId).to({alpha : 1 },100, "Linear", false, 0, 0);
+        this.egoItemsOff = game.add.tween(this.itemsEgo).to({alpha : 0 },100, "Linear", false, 0, 0);
+
 
         //adding music sprites
         //this.gameMusic = game.add.audio('Game Music', 0.2);
@@ -117,16 +129,18 @@ play.prototype = {
              map.setCollisionBetween(340, 345, true, this.egoState);
              map.setCollisionBetween(380, 385, true, this.egoState);
              
-             map.setCollisionBetween(163, 164, true, this.egoState);
-             map.setCollisionBetween(183, 184, true, this.egoState);
+             map.setCollisionBetween(162, 165, true, this.egoState);
+             map.setCollisionBetween(182, 185, true, this.egoState);
 
              map.setCollisionBetween(354, 359, false, this.idState); //collision for platforms in state 2
              map.setCollisionBetween(314, 319, false, this.idState); //collision for platforms in state 2
 
-             map.setCollisionBetween(163, 164, false, this.idState);
-             map.setCollisionBetween(183, 184, false, this.idState);
-             this.toEgo1.start();
-             this.toEgo2.start();
+             map.setCollisionBetween(162, 165, false, this.idState);
+             map.setCollisionBetween(182, 185, false, this.idState);
+             this.egoMapOn.start();
+             this.egoItemsOn.start();
+             this.idMapOff.start();
+             this.idItemsOff.start();
              this.inId = false;
              p.inId = false;
              this.switchSound1.play();
@@ -135,16 +149,18 @@ play.prototype = {
             map.setCollisionBetween(354, 359, true, this.idState); //collision for platforms in state 2
             map.setCollisionBetween(314, 319, true, this.idState); //collision for platforms in state 2
 
-            map.setCollisionBetween(163, 164, true, this.idState);
-            map.setCollisionBetween(183, 184, true, this.idState);
+            map.setCollisionBetween(162, 165, true, this.idState);
+            map.setCollisionBetween(182, 185, true, this.idState);
 
             map.setCollisionBetween(340, 345, false, this.egoState);
             map.setCollisionBetween(380, 385, false, this.egoState);
 
-            map.setCollisionBetween(163, 164, false, this.egoState);
-            map.setCollisionBetween(183, 184, false, this.egoState);
-            this.toId1.start();
-            this.toId2.start();
+            map.setCollisionBetween(162, 165, false, this.egoState);
+            map.setCollisionBetween(182, 185, false, this.egoState);
+            this.egoMapOff.start();
+            this.idMapOn.start();
+            this.egoItemsOff.start();
+            this.idItemsOn.start();
             this.inId = true;
             p.inId = true;
             this.switchSound2.play();

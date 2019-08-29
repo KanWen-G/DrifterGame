@@ -44,6 +44,7 @@ play.prototype = {
         this.idState.alpha = 0;
         this.egoState.resizeWorld();
         this.inId = false;
+
         //tweens for switching from id to ego
         this.egoMapOn = game.add.tween(this.egoState).to({alpha : 1 },100, "Linear", false, 0, 0);
         this.idMapOff = game.add.tween(this.idState).to({alpha : 0 },100, "Linear", false, 0, 0);
@@ -69,7 +70,7 @@ play.prototype = {
         this.textAdvanceSound = game.add.audio('Text Advance');
 
         //creating player
-        p = new Player (game,288,1600);
+        p = new Player (game,288,1625);
         game.add.existing(p);
         game.world.bringToTop(p);
         game.camera.follow(p);
@@ -124,46 +125,59 @@ play.prototype = {
 
 },
      switchSelf: function(){
+            //if currently in idState,
              if (this.inId){
+                //then turn on all egoState layers and remove idState layers
              console.log('inEgo');
-             map.setCollisionBetween(340, 345, true, this.egoState);
-             map.setCollisionBetween(380, 385, true, this.egoState);
+
+                //code to turn collision on/off for different layers
+                map.setCollisionBetween(340, 345, true, this.egoState);
+                map.setCollisionBetween(380, 385, true, this.egoState);
              
-             map.setCollisionBetween(162, 165, true, this.egoState);
-             map.setCollisionBetween(182, 185, true, this.egoState);
+                map.setCollisionBetween(162, 165, true, this.egoState);
+                map.setCollisionBetween(182, 185, true, this.egoState);
 
-             map.setCollisionBetween(354, 359, false, this.idState); //collision for platforms in state 2
-             map.setCollisionBetween(314, 319, false, this.idState); //collision for platforms in state 2
+                map.setCollisionBetween(354, 359, false, this.idState); //collision for platforms in state 2
+                map.setCollisionBetween(314, 319, false, this.idState); //collision for platforms in state 2
 
-             map.setCollisionBetween(162, 165, false, this.idState);
-             map.setCollisionBetween(182, 185, false, this.idState);
-             this.egoMapOn.start();
-             this.egoItemsOn.start();
-             this.idMapOff.start();
-             this.idItemsOff.start();
-             this.inId = false;
-             p.inId = false;
-             this.switchSound1.play();
-             }else{
-            console.log('inId');
-            map.setCollisionBetween(354, 359, true, this.idState); //collision for platforms in state 2
-            map.setCollisionBetween(314, 319, true, this.idState); //collision for platforms in state 2
+                map.setCollisionBetween(162, 165, false, this.idState);
+                map.setCollisionBetween(182, 185, false, this.idState);
 
-            map.setCollisionBetween(162, 165, true, this.idState);
-            map.setCollisionBetween(182, 185, true, this.idState);
+                //code to turn on/off visual appearance of layers
+                this.egoMapOn.start();
+                this.egoItemsOn.start();
+                this.idMapOff.start();
+                this.idItemsOff.start();
+                this.inId = false;
+                p.inId = false;
+                this.switchSound1.play();
+            }else{ //else
+                //turn on all idState layers and remove egoState layers
+                console.log('inId');
 
-            map.setCollisionBetween(340, 345, false, this.egoState);
-            map.setCollisionBetween(380, 385, false, this.egoState);
+                //code to turn collision on/off for different layers
+                map.setCollisionBetween(354, 359, true, this.idState); //collision for platforms in state 2
+                map.setCollisionBetween(314, 319, true, this.idState); //collision for platforms in state 2
 
-            map.setCollisionBetween(162, 165, false, this.egoState);
-            map.setCollisionBetween(182, 185, false, this.egoState);
-            this.egoMapOff.start();
-            this.idMapOn.start();
-            this.egoItemsOff.start();
-            this.idItemsOn.start();
-            this.inId = true;
-            p.inId = true;
-            this.switchSound2.play();
+                map.setCollisionBetween(162, 165, true, this.idState);
+                map.setCollisionBetween(182, 185, true, this.idState);
+
+                map.setCollisionBetween(340, 345, false, this.egoState);
+                map.setCollisionBetween(380, 385, false, this.egoState);
+
+                map.setCollisionBetween(162, 165, false, this.egoState);
+                map.setCollisionBetween(182, 185, false, this.egoState);
+
+                //code to turn on/off visual appearance of layers
+                this.egoMapOff.start();
+                this.idMapOn.start();
+                this.egoItemsOff.start();
+                this.idItemsOn.start();
+                //updating variables
+                this.inId = true;
+                p.inId = true;
+                //playing switch effect
+                this.switchSound2.play();
             }
     },
     

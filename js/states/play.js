@@ -32,6 +32,8 @@ play.prototype = {
         map.setCollisionBetween(340, 345, true, this.egoState); //collision for platforms in state 1
         map.setCollisionBetween(380, 385, true, this.egoState); //collision for platforms in state 1
 
+        
+
         map.setCollisionBetween(354, 359, false, this.idState); //collision for platforms in state 2
         map.setCollisionBetween(314, 319, false, this.idState); //collision for platforms in state 2
 

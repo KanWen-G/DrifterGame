@@ -13,7 +13,7 @@ function unlocking(word){
             this.theInput = [];
             this.correct = 0;
             p.pause = true;
-            lockConuter = false;
+            lockCounter = true;
             game.input.keyboard.addCallbacks(this, null, null, this.keyPress);
         }else if (game.input.keyboard.justPressed(Phaser.Keyboard.F) && !lockConuter){
             p.pause = false;

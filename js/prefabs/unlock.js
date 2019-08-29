@@ -3,8 +3,7 @@ function unlocking(word){
     if(counterF == false){
         if(game.input.keyboard.justPressed(Phaser.Keyboard.F)){
             this.lock = game.add.sprite(game.camera.x + 300, 150, 'lock');
-            this.lock.animations.add('error', [0,1], 5);
-            //this.lock= game.add.sprite(this, game,game.camera.x + 400, game.camera.y, 'lock');
+            this.lock.animations.add('error', [0,1], 14, true, true);
             this.frame = 0;
             isLock = false;
             this.lockedSound = game.add.audio('Locked');
@@ -21,46 +20,58 @@ function unlocking(word){
     }
 }
 
+function stopAnimation(){
+    this.lock.animations.stop()
+}
+
+function killLock(){
+    this.lock.kill();
+}
+
 function keyPress (char){ 
-
-    if (this.attempt < this.word.length){
-        this.lock.animations.play('error');
-        this.lockedSound.play();
-        this.theInput[this.attempt] = char;
-        this.attempt++;
-        
-
-    }
-    if(this.attempt == this.word.length){
-        for (var i = 0; i < this.word.length; i++)
-        {
-            if(this.theInput[i] == this.word.charAt(i))
-                this.correct++;
+    this.theInput[this.correct] = char;
+    console.log(this.theInput[this.correct]);
+    if (this.correct == 0){
+        if(this.theInput[this.correct] == this.word.charAt(this.correct)){
+            this.correct++;
+            this.lock.frame = 2;
+            this.lockedSound.play();
+        } else {
+            this.lock.animations.play('error');
+            this.failSound.play()
+            this.theInput = [];
+            this.correct = 0;
+            game.time.events.add(200, stopAnimation, this);
         }
-
-        if (this.correct == this.word.length){
+    } else if (this.correct == 1){
+        if(this.theInput[this.correct]  == this.word.charAt(this.correct)){
+            this.correct++;
+            this.lock.frame = 3;
+            this.lockedSound.play();
+        } else {
+            this.lock.animations.play('error');
+            this.failSound.play()
+            this.theInput = [];
+            this.correct = 0;
+            game.time.events.add(200, stopAnimation, this);
+        }
+    } else if (this.correct == 2){
+        if(this.theInput[this.correct]  == this.word.charAt(this.correct)){
+            this.lock.frame = 4;
             this.unlockedSound.play();
             p.pause = false;
             game.input.keyboard.removeCallbacks();
             isLock = true;
-            this.lock.alpha = 0;
-            this.lock.kill();
-
-
-        }
-        if (this.correct < this.word.length){
-            this.frame=0;
+            game.time.events.add(300, killLock, this);
+        }else {
+            this.lock.animations.play('error');
+            this.failSound.play()
             this.theInput = [];
-            this.attempt = 0;
             this.correct = 0;
-            this.failSound.play();
-            this.lock.alpha = 0;
-            p.pause = false;
-            game.input.keyboard.removeCallbacks();
-            this.lock.kill();
+            game.time.events.add(200, stopAnimation, this);
         }
-    }
-    console.log(this.theInput);
-    console.log(this.attempt);
-    console.log(this.word.length);
+    } 
+
+    console.log(this.theInput[this.correct]);
+    console.log(this.word.charAt(this.correct));
 }

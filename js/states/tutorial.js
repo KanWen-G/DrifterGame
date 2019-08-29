@@ -13,6 +13,7 @@ tutorial.prototype = {    create: function () {
     this.Background = map.createLayer('Background');
     this.state1 = map.createLayer('World1');
     this.state2 = map.createLayer('World2');
+    this.door = map.createLayer('door');
     this.items = map.createLayer('Items');
     this.items2 = map.createLayer('Items2');
     this.block = map.createLayer('block');
@@ -23,9 +24,9 @@ tutorial.prototype = {    create: function () {
     game.physics.arcade.enable(this.state2);
     game.physics.arcade.enable(this.block);
     this.cantSwitch = false;
-    map.setCollision(309,true, this.items);
-    map.setCollision(329,true, this.items);
-    map.setCollision(349,true, this.items);
+    map.setCollision(309,true, this.door);
+    map.setCollision(329,true, this.door);
+    map.setCollision(349,true, this.door);
     map.setCollisionBetween(120, 150, true, this.state1); //collision for platforms in state 1
     map.setCollisionBetween(340, 345, true, this.state1); //collision for platforms in state 1
     map.setCollisionBetween(120, 150, false, this.state2); //collision for platforms in state 1
@@ -51,6 +52,8 @@ tutorial.prototype = {    create: function () {
     this.toEgo2 = game.add.tween(this.state2).to({alpha : 0 },100, "Linear", false, 0, 0);
     this.toEgo3 = game.add.tween(this.items).to({alpha : 1 },100, "Linear", false, 0, 0);
     this.toEgo4 = game.add.tween(this.items2).to({alpha : 0 },100, "Linear", false, 0, 0);
+    this.toEgo5 = game.add.tween(this.door).to({alpha : 1 },100, "Linear", false, 0, 0);
+    this.toId5 = game.add.tween(this.door).to({alpha : 0 },100, "Linear", false, 0, 0);
 
     this.toId1 = game.add.tween(this.state1).to({alpha : 0 },100, "Linear", false, 0, 0);
     this.toId2 = game.add.tween(this.state2).to({alpha : 1 },100, "Linear", false, 0, 0);
@@ -96,7 +99,7 @@ update: function () {
     game.physics.arcade.collide(p, this.state2);
     game.physics.arcade.collide(p, this.Background);
     game.physics.arcade.collide(p, this.block);
-    game.physics.arcade.collide(p, this.items);
+    game.physics.arcade.collide(p, this.door);
     if(p.body.velocity.x != 0 && this.haveText){
         this.currentMessage.fadeText1.start();
         this.currentMessage.fadeText2.start();
@@ -116,10 +119,12 @@ update: function () {
          map.setCollisionBetween(340, 345, true, this.state1); //collision for platforms in state 1
          map.setCollisionBetween(120, 150, false, this.state2); //collision for platforms in state 1
          map.setCollisionBetween(380, 385, false, this.state2); //collision for platforms in state 2
+
          this.toEgo1.start();
          this.toEgo2.start();
          this.toEgo3.start();
          this.toEgo4.start();
+         this.toEgo5.start();
          this.inId = false;
          p.inId = false;
          this.switchSound1.play();
@@ -129,10 +134,12 @@ update: function () {
         map.setCollisionBetween(340, 345, false, this.state1); //collision for platforms in state 1
         map.setCollisionBetween(120, 150, true, this.state2); //collision for platforms in state 1
         map.setCollisionBetween(380, 385, true, this.state2); //collision for platforms in state 2
+        
         this.toId1.start();
         this.toId2.start();
         this.toId3.start();
         this.toId4.start();
+        this.toId5.start();
         this.inId = true;
         p.inId = true;
         this.switchSound2.play();
@@ -167,9 +174,11 @@ lock1: function(){
     if(!this.inId){
         unlocking('pas');
         if(isLock){    
-            map.setCollision(309,false, this.items);
-            map.setCollision(329,false, this.items);
-            map.setCollision(349,false, this.items);}
+            map.setCollision(309,false, this.door);
+            map.setCollision(329,false, this.door);
+            map.setCollision(349,false, this.door);
+            this.door.alpha = 0;
+        }
     }
 },
 

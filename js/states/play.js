@@ -16,8 +16,9 @@ play.prototype = {
         this.itemsEgo = map.createLayer('Items');
         this.itemsId = map.createLayer('Items2');
         this.door2 = map.createLayer('Door2');
-        this.block = map.createLayer('block');
         this.door1 = map.createLayer('Door1');
+        this.block = map.createLayer('block');
+        
         this.cantSwitch = false;
         this.block.alpha = 0;
         map.setCollisionBetween(205 ,207, false, this.block);//collision for platforms in state 2
@@ -27,6 +28,7 @@ play.prototype = {
         game.physics.arcade.enable(this.idState);
         game.physics.arcade.enable(this.block);
         game.physics.arcade.enable(this.door1);
+        game.physics.arcade.enable(this.door2);
 
         map.setCollisionBetween(115, 187, true, this.egoState); //collisionstate 1
         map.setCollisionBetween(340, 345, true, this.egoState);
@@ -39,17 +41,32 @@ play.prototype = {
         map.setCollision(310,true, this.door1);
         map.setCollision(330,true, this.door1);
         map.setCollision(350,true, this.door1);
+        map.setCollision(311,true, this.door2);
+        map.setCollision(331,true, this.door2);
+        map.setCollision(351,true, this.door2);
 
         
 
-        //map.setTileLocationCallback(51, 108, 1, 1, this.makeText0, this, this.itemsEgo);
-        //map.setTileLocationCallback(37, 95, 1, 1, this.makeText1, this, this.egoState);
-        //map.setTileLocationCallback(60, 95, 1, 1, this.makeText2, this, this.idState);
-        map.setTileLocationCallback(51, 108, 1, 1, this.makeText, this, this.egoState);
-        map.setTileLocationCallback(2, 87, 1, 1, this.makeText1, this, this.egoState);
+
+        map.setTileLocationCallback(50, 108, 1, 1, this.makeText, this, this.egoState);
+        map.setTileLocationCallback(51, 108, 1, 1, this.makeText1, this, this.egoState);
         map.setTileLocationCallback(60, 96, 1, 1, this.makeText2, this, this.egoState);
-        map.setTileLocationCallback(36, 84, 1, 1, this.makeText3, this, this.egoState);
+        map.setTileLocationCallback(26, 84, 1, 1, this.makeText3, this, this.egoState);
+        
+        map.setTileLocationCallback(76, 108, 1, 1, this.makeText4, this, this.egoState);
+        map.setTileLocationCallback(75, 85, 1, 1, this.makeText5, this, this.egoState);
+        map.setTileLocationCallback(87, 75, 1, 1, this.makeText6, this, this.egoState);
+        map.setTileLocationCallback(74, 69, 1, 1, this.makeText7, this, this.egoState);
+
+        map.setTileLocationCallback(6, 65, 1, 1, this.makeText8, this, this.egoState);
+        map.setTileLocationCallback(11, 60, 1, 1, this.makeText9, this, this.egoState);
+        map.setTileLocationCallback(37, 52, 1, 1, this.makeText10, this, this.egoState);
+        map.setTileLocationCallback(29, 44, 1, 1, this.makeText11, this, this.egoState);
+
         map.setTileLocationCallback(66, 96, 1, 1, this.lock1, this, this.egoState);
+        map.setTileLocationCallback(69, 67, 1, 1, this.lock2, this, this.egoState);
+
+
         
         this.haveText = false;
         this.idState.alpha = 0;
@@ -120,6 +137,7 @@ play.prototype = {
         game.physics.arcade.collide(p, this.idState);
         game.physics.arcade.collide(p, this.Background);
         game.physics.arcade.collide(p, this.door1);
+        game.physics.arcade.collide(p, this.door2);
         if(p.body.velocity.x != 0 && this.haveText){
             console.log('something');
             this.currentMessage.fadeText1.start();
@@ -191,7 +209,7 @@ play.prototype = {
         }
     },
     makeText1: function(){
-        if(!this.haveText && this.egoState.alpha != 0){
+        if(!this.haveText && this.idState.alpha != 0){
             this.currentMessage = new TextBox(game, 0);
             this.haveText = true;
         }
@@ -203,7 +221,55 @@ play.prototype = {
         }
     },
     makeText3: function(){
+        if(!this.haveText && this.egoState.alpha != 0){
+            this.currentMessage = new TextBox(game, 0);
+            this.haveText = true;
+        }
+    },
+    makeText4: function(){
+        if(!this.haveText && this.egoState.alpha != 0){
+            this.currentMessage = new TextBox(game, 0);
+            this.haveText = true;
+        }
+    },
+    makeText5: function(){
+        if(!this.haveText && this.egoState.alpha != 0){
+            this.currentMessage = new TextBox(game, 0);
+            this.haveText = true;
+        }
+    },
+    makeText6: function(){
         if(!this.haveText && this.idState.alpha != 0){
+            this.currentMessage = new TextBox(game, 0);
+            this.haveText = true;
+        }
+    },
+    makeText7: function(){
+        if(!this.haveText && this.egoState.alpha != 0){
+            this.currentMessage = new TextBox(game, 0);
+            this.haveText = true;
+        }
+    },
+    makeText8: function(){
+        if(!this.haveText && this.egoState.alpha != 0){
+            this.currentMessage = new TextBox(game, 0);
+            this.haveText = true;
+        }
+    },
+    makeText9: function(){
+        if(!this.haveText && this.idState.alpha != 0){
+            this.currentMessage = new TextBox(game, 0);
+            this.haveText = true;
+        }
+    },
+    makeText10: function(){
+        if(!this.haveText && this.egoState.alpha != 0){
+            this.currentMessage = new TextBox(game, 0);
+            this.haveText = true;
+        }
+    },
+    makeText11: function(){
+        if(!this.haveText && this.egoState.alpha != 0){
             this.currentMessage = new TextBox(game, 0);
             this.haveText = true;
         }
@@ -217,12 +283,18 @@ play.prototype = {
         if(!this.inId){
             unlocking('sap');
             if(isLock == 2){    
-                map.setCollision(310,false, this.door1);
-                map.setCollision(330,false, this.door1);
-                map.setCollision(350,false, this.door1);
                 this.door1.kill();
             }
         }
+    }, 
+
+        lock2: function(){
+            if(!this.inId){
+                unlocking('iop');
+                if(isLock == 3){    
+                    this.door2.kill();
+                }
+            }
     }, 
 };
 

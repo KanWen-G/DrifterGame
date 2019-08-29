@@ -313,7 +313,7 @@ play.prototype = {
             }
     }, 
 
-    lock2: function(){
+    lock3: function(){
         if(!this.inId){
             unlocking('ego');
             if(isLock == 3){    

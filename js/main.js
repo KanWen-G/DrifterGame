@@ -9,8 +9,7 @@ var game;
 var p;
 var inId = false;
 var map;
-var isLock;
-var lockConuter = true;
+var isLock = false;
 // wait for browser to load before creating Phaser game
 window.onload = function() {
     // uncomment the following line if you need to purge local storage data

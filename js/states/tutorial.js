@@ -23,9 +23,9 @@ tutorial.prototype = {    create: function () {
     game.physics.arcade.enable(this.state2);
     game.physics.arcade.enable(this.block);
     this.cantSwitch = false;
-    map.setCollision(310,true, this.items);
-    map.setCollision(330,true, this.items);
-    map.setCollision(350,true, this.items);
+    map.setCollision(309,true, this.items);
+    map.setCollision(329,true, this.items);
+    map.setCollision(349,true, this.items);
     map.setCollisionBetween(120, 150, true, this.state1); //collision for platforms in state 1
     map.setCollisionBetween(340, 345, true, this.state1); //collision for platforms in state 1
     map.setCollisionBetween(120, 150, false, this.state2); //collision for platforms in state 1
@@ -166,9 +166,9 @@ lock1: function(){
     if(!this.inId){
         unlocking('pas');
         if(isLock){    
-            map.setCollision(310,false, this.items);
-            map.setCollision(330,false, this.items);
-            map.setCollision(350,false, this.items);}
+            map.setCollision(309,false, this.items);
+            map.setCollision(329,false, this.items);
+            map.setCollision(349,false, this.items);}
     }
 },
 

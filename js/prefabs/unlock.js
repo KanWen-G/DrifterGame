@@ -4,7 +4,6 @@ function unlocking(word){
         this.lock = game.add.sprite(game.camera.x + 300, game.camera.y + 150, 'lock');
         this.lock.animations.add('error', [0,1], 14, true, true);
         this.frame = 0;
-        isLock = false;
         this.lockedSound = game.add.audio('Locked');
         this.unlockedSound = game.add.audio('Unlocked');
         this.failSound = game.add.audio('LockFail');
@@ -66,7 +65,7 @@ if (this.correct == 0){
         this.unlockedSound.play();
         p.pause = false;
         game.input.keyboard.removeCallbacks();
-        isLock = true;
+        isLock++;
         game.time.events.add(300, killLock, this);
     }else {
         this.lock.animations.play('error');

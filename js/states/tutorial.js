@@ -200,6 +200,7 @@ nextlevel: function(){
 
 startPlay: function(){
     game.state.start('play', true);
+    game.sound.stopAll();
 }
 
 

@@ -3,7 +3,7 @@
 var gameOver = function(game) {};
 gameOver.prototype = {
     create: function() {
-        this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
         this.cutSceneMusic = game.add.audio('Cutscene Music', 0.2);
         this.cutSceneMusic.loopFull();
 
@@ -56,10 +56,6 @@ gameOver.prototype = {
         game.time.events.add(Phaser.Timer.SECOND * 2, this.firstLine, this);
     },
     update: function() {
-        if(this.spaceKey.downDuration(3000)) {
-            game.camera.fade(0x000000, 1000);
-            game.time.events.add(Phaser.Timer.SECOND * 1, this.startNextScene, this);
-        }
 
         if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.secondTextDone){
             game.camera.fade(0x000000, 1000);
@@ -80,6 +76,20 @@ gameOver.prototype = {
             this.text5 = game.add.text(game.camera.x + 400, game.camera.y + 300 , '', this.introTextStyle2);
             this.text5.anchor.setTo(0.5,0.5);
             this.secondLine();
+        }
+                
+        if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            this.time++;
+        }
+
+        if(game.input.keyboard.justReleased(Phaser.Keyboard.SPACEBAR)) {
+            this.time = 0;
+        } 
+
+        if(this.time > 100){
+            this.time = 0;
+            game.camera.fade(0x000000, 1000);
+            game.time.events.add(Phaser.Timer.SECOND * 1, this.startNextScene, this);
         }
 
     },
@@ -171,6 +181,6 @@ gameOver.prototype = {
     },
     startNextScene: function(){
         game.sound.stopAll();
-        game.state.start('gameover2');
+        game.state.start('gameOver2');
     }
 }

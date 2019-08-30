@@ -11,7 +11,7 @@ introscene.prototype = {
         this.time = 0;
         this.worldIndex2 = 0;
         this.lineIndex2 = 0;
-
+        this.onlyOne = 0;
         this.firstTextDone = false;
         this.secondTextDone = false;
 
@@ -63,9 +63,10 @@ introscene.prototype = {
     },
     update: function() {
         //console.log(this.time);
-        if(this.firstTextDone){
+        if(this.firstTextDone&&this.onlyOne == 0){
             this.nextQuote = game.add.text(game.camera.x + 400, game.camera.y + 300 + 150, "Press SPACE to continue.", {font: "12px Arial", fill: "#ffffff"});
             this.nextQuote.anchor.setTo(0.5, 0.5);
+            this.onlyOne = 1;
             //this.nextQuote.alpha = 0;
             //this.flashNext = game.add.tween(this.nextQuote).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true, 0, 1000, true);
             //this.flashNext.start();

@@ -54,6 +54,7 @@ gameOver.prototype = {
 
         //starting the first textbox
         game.time.events.add(Phaser.Timer.SECOND * 2, this.firstLine, this);
+        this.onlyOne = 0;
     },
     update: function() {
 
@@ -62,16 +63,24 @@ gameOver.prototype = {
             game.time.events.add(Phaser.Timer.SECOND * 1, this.startNextScene, this);
         }
 
-        if(this.firstTextDone1){
+        if(this.firstTextDone1 &&this.onlyOne == 0){
             this.nextQuote2 = game.add.text(game.camera.x + 400, game.camera.y + 300 + 150, "Press SPACE to continue.", {font: "12px Arial", fill: "#ffffff"});
             this.nextQuote2.anchor.setTo(0.5, 0.5);
             this.nextQuote2.alpha = 0;
+            this.onlyOne = 1;
+            this.flashNext = game.add.tween(this.nextQuote2).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true, 0, 1000, true).loop(true);
+            this.flashNext.start();
+        }
+        
+        if(this.secondTextDone){
             this.flashNext = game.add.tween(this.nextQuote2).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true, 0, 1000, true).loop(true);
             this.flashNext.start();
         }
         
         if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.firstTextDone1) {
             this.firstTextDone1 = false;
+            this.flashNext.stop();
+            this.nextQuote2.alpha = 0;
             this.text4.kill();
             this.text5 = game.add.text(game.camera.x + 400, game.camera.y + 300 , '', this.introTextStyle2);
             this.text5.anchor.setTo(0.5,0.5);

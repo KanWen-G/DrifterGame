@@ -38,14 +38,21 @@ infirmaryintroscene.prototype = {
 
         //starting the first textbox
         game.time.events.add(Phaser.Timer.SECOND * 2, this.firstLine, this);
+        this.onlyOne = 0;
     },
     update: function() {
-        if(this.firstTextDone1){
+        if(this.firstTextDone1 && this.onlyOne == 0){
             this.nextQuote2 = game.add.text(game.camera.x + 400, game.camera.y + 300 + 150, "Press SPACE to continue.", {font: "12px Arial", fill: "#ffffff"});
             this.nextQuote2.anchor.setTo(0.5, 0.5);
             this.nextQuote2.alpha = 0;
+            this.onlyOne = 1;
             this.flashNext = game.add.tween(this.nextQuote2).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true, 0, 1000, true).loop(true);
             this.flashNext.start();
+        }
+
+        if(this.firstTextDone1 && game.input.keyboard.justReleased(Phaser.Keyboard.SPACEBAR)){
+            game.camera.fade(0x000000, 1000);
+            game.time.events.add(Phaser.Timer.SECOND * 1, this.startGame, this);
         }
 
         if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {

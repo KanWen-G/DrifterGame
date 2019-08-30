@@ -26,7 +26,7 @@ update: function() {
     game.scale.refresh();
     // check for UP input
     if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
-        game.state.start('introscene');
+        game.state.start('intromonologue');
         this.gameMusic.stop();
     }
 },

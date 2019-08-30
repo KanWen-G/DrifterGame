@@ -44,7 +44,7 @@ petertalks.prototype = {
 
     },
     update: function(){
-        if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && wordIndex === line.length) {
+        if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.lineIndex > 10) {
             this.sound.stop();
             game.camera.fade(0x000000, 1000);
             game.time.events.add(Phaser.Timer.SECOND * 1, this.startGame, this);
@@ -53,9 +53,12 @@ petertalks.prototype = {
         if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
             this.time++;
         }
-
-        if(this.time > 3000){
+    
+        if(game.input.keyboard.justReleased(Phaser.Keyboard.SPACEBAR)) {
             this.time = 0;
+        } 
+    
+        if(this.time > 100){
             this.sound.stop();
             game.camera.fade(0x000000, 1000);
             game.time.events.add(Phaser.Timer.SECOND * 1, this.startGame, this);

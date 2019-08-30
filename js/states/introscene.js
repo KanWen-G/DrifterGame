@@ -1,43 +1,5 @@
 // Intro Cutscene state
-/*var nextQuote;
-var this.line2 = [];
 
-var this.worldIndex2 = 0;
-var lineIndex2 = 0;
-
-var firstTextDone = false;
-var secondTextDone = false;
-
-var this.line3 = [];
-
-var wordIndex3 = 0;
-var this.lineIndex3 = 0;
-
-
-var content2 = [
-    "Officer: His name is Peter Hooky. He manages a prison complex near Vixburg. Large building, houses a few hundred thousand inmates. Private prison corporations like the one that owned Peter’s complex sometimes hold inmates longer than they’re supposed to to make more money, since they get paid per prisoner they hold. ",
-    " ",
-    "Drifter: So Peter’s been over-holding prisoners? Is that why he’s been arrested?",
-    "",
-    "Officer: Well, usually the prisons can get away with keeping prisoners through legal methods. Denying paroles, giving needless infractions, small methods that build up into longer sentences. But we think either Peter or his superiors got greedy. He may have tried to secretly manipulate prisoner information to give them longer sentences, or altered policies for paroles that don’t agree with the state’s. "
-];
-var content3 = [
-    "Drifter: So let me guess why I’m here: you don’t have enough evidence and need me to help with that.",
-    "",
-    "Officer: Not exactly. We think we have enough evidence for a case. Hence why we were able to get a warrant to detain him. But we don’t have a clear motive. Without a motive, a good enough lawyer can shut down the case. We need you to do your ‘special trick’ to figure out what he gets out of this, or if it was all just for the money.",
-    "",
-    "Drifter: It’ll be my usual fee. Is he already prepped?",
-    "",
-    "Officer: Yep. Done this for a few years now, Drifter. We know the drill.",
-    "",
-    "Drifter: Then let’s get this done. I don’t have all night."
-];
-var introTextStyle2 = { font: "14px Arial", fill: "#ffffff", 
-align: "center", // the alignment of the text is independent of the bounds, try changing to 'center' or 'right'
-boundsAlignH: "center", 
-boundsAlignV: "middle", 
-wordWrap: true, wordWrapWidth: 600 };
-*/
 var introscene = function(game) {};
 introscene.prototype = {
     
@@ -100,7 +62,7 @@ introscene.prototype = {
         game.time.events.add(Phaser.Timer.SECOND * 2, this.firstLine, this);
     },
     update: function() {
-        console.log(this.time);
+        //console.log(this.time);
         if(this.firstTextDone){
             this.nextQuote = game.add.text(game.camera.x + 400, game.camera.y + 300 + 150, "Press SPACE to continue.", {font: "12px Arial", fill: "#ffffff"});
             this.nextQuote.anchor.setTo(0.5, 0.5);
@@ -170,7 +132,7 @@ introscene.prototype = {
         this.nextLine3();
     },
     nextline2: function() {
-        console.log(this.lineIndex2);
+        //console.log(this.lineIndex2);
         if (this.lineIndex2 === this.content2.length)
         {
             this.firstTextDone = true;

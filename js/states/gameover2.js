@@ -157,6 +157,6 @@ gameOver2.prototype = {
     },
     startNextScene: function(){
         game.sound.stopAll();
-        game.state.start('title');
+        game.state.start('credits');
     }
 }

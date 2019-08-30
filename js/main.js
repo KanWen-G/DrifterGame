@@ -23,7 +23,9 @@ window.onload = function() {
     game.state.add('play', play);
     game.state.add('gameOver', gameOver);
     game.state.add('gameOver2', gameOver2);
+    game.state.add('credits', credits);
     game.state.start('load');
+
 }
 
 

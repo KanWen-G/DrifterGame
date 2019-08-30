@@ -20,6 +20,10 @@ create: function() {
     
 },
 update: function() {
+    //code to center game in browser
+    game.scale.pageAlignHorizontally = true;
+    game.scale.pageAlignVertically = true;
+    game.scale.refresh();
     // check for UP input
     if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
         game.state.start('introscene');

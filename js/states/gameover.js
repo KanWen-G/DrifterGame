@@ -162,6 +162,6 @@ gameOver.prototype = {
     },
     startNextScene: function(){
         game.sound.stopAll();
-        game.state.start('title');
+        game.state.start('gameover2');
     }
 }

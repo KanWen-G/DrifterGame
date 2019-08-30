@@ -103,7 +103,7 @@ play.prototype = {
         //adding sfx sprites
         this.switchSound1 = game.add.audio('Switch 1');
         this.switchSound2 = game.add.audio('Switch 2');
-        this.gameMusic = game.add.audio('Game Music', 0.2);
+        this.gameMusic = game.add.audio('Game Music', 0.4);
         this.gameMusic.loopFull();
 
         //creating player

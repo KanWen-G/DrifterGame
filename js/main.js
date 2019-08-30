@@ -23,6 +23,7 @@ window.onload = function() {
     game.state.add('tutorial', tutorial);
     game.state.add('play', play);
     game.state.add('gameOver', gameOver);
+    game.state.add('gameOver2', gameOver2);
     game.state.start('load');
 }
 

@@ -6,7 +6,7 @@ gameOver.prototype = {
 
         this.cutSceneMusic = game.add.audio('Cutscene Music', 0.2);
         this.cutSceneMusic.loopFull();
-
+        isLock = 0;
         this.nextQuote2;
         this.line4 = [];
         this.line5 = []

@@ -42,11 +42,11 @@ var introscene = function(game) {};
 introscene.prototype = {
     
     create: function(){
-
+        this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         this.nextQuote;
         this.line2 = [];
         
-
+        this.time = 0;
         this.worldIndex2 = 0;
         this.lineIndex2 = 0;
 
@@ -100,6 +100,7 @@ introscene.prototype = {
         game.time.events.add(Phaser.Timer.SECOND * 2, this.firstLine, this);
     },
     update: function() {
+        console.log(this.time);
         if(this.firstTextDone){
             this.nextQuote = game.add.text(game.camera.x + 400, game.camera.y + 300 + 150, "Press SPACE to continue.", {font: "12px Arial", fill: "#ffffff"});
             this.nextQuote.anchor.setTo(0.5, 0.5);
@@ -121,7 +122,22 @@ introscene.prototype = {
             this.text3.anchor.setTo(0.5,0.5);
             this.secondLine();
         }
+
         if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.secondTextDone){
+            game.camera.fade(0x000000, 1000);
+            game.time.events.add(Phaser.Timer.SECOND * 1, this.startNextScene, this);
+        }
+        
+        if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            this.time++;
+        }
+
+        if(game.input.keyboard.justReleased(Phaser.Keyboard.SPACEBAR)) {
+            this.time = 0;
+        } 
+
+        if(this.time > 100){
+            this.time = 0;
             game.camera.fade(0x000000, 1000);
             game.time.events.add(Phaser.Timer.SECOND * 1, this.startNextScene, this);
         }

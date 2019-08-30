@@ -36,6 +36,7 @@ boundsAlignV: "middle",
 wordWrap: true, wordWrapWidth: 400 };
 
 function create() {
+    this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     this.sound = game.add.audio('Walking 2', 0.3);
     this.sound.loopFull();
 
@@ -51,10 +52,26 @@ function create() {
 
 }
 function update(){
-    if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
+
+    if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && lineIndex == 15 ) {
         this.sound.stop();
         game.state.start('introscene');
     }
+
+    if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+        this.time++;
+    }
+
+    if(game.input.keyboard.justReleased(Phaser.Keyboard.SPACEBAR)) {
+        this.time = 0;
+    } 
+
+    if(this.time > 100){
+        this.sound.stop();
+        game.state.start('introscene');
+    }
+
+
 }
 
 function nextLine() {

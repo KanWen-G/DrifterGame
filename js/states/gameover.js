@@ -3,6 +3,7 @@
 var gameOver = function(game) {};
 gameOver.prototype = {
     create: function() {
+        this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         this.cutSceneMusic = game.add.audio('Cutscene Music', 0.2);
         this.cutSceneMusic.loopFull();
 
@@ -55,6 +56,16 @@ gameOver.prototype = {
         game.time.events.add(Phaser.Timer.SECOND * 2, this.firstLine, this);
     },
     update: function() {
+        if(this.spaceKey.downDuration(3000)) {
+            game.camera.fade(0x000000, 1000);
+            game.time.events.add(Phaser.Timer.SECOND * 1, this.startNextScene, this);
+        }
+
+        if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.secondTextDone){
+            game.camera.fade(0x000000, 1000);
+            game.time.events.add(Phaser.Timer.SECOND * 1, this.startNextScene, this);
+        }
+
         if(this.firstTextDone1){
             this.nextQuote2 = game.add.text(game.camera.x + 400, game.camera.y + 300 + 150, "Press SPACE to continue.", {font: "12px Arial", fill: "#ffffff"});
             this.nextQuote2.anchor.setTo(0.5, 0.5);
@@ -62,6 +73,7 @@ gameOver.prototype = {
             this.flashNext = game.add.tween(this.nextQuote2).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true, 0, 1000, true).loop(true);
             this.flashNext.start();
         }
+        
         if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.firstTextDone1) {
             this.firstTextDone1 = false;
             this.text4.kill();
@@ -69,10 +81,7 @@ gameOver.prototype = {
             this.text5.anchor.setTo(0.5,0.5);
             this.secondLine();
         }
-        if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.secondTextDone){
-            game.camera.fade(0x000000, 1000);
-            game.time.events.add(Phaser.Timer.SECOND * 1, this.startNextScene, this);
-        }
+
     },
     firstLine: function(){
         

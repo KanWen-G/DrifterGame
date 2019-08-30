@@ -12,8 +12,7 @@ function Player(game,x,y) {
     this.maxSpeedNormal = new Phaser.Point(250, 10000);
     this.body.maxVelocity = this.maxSpeedNormal;
     this.maxSpeedShift = new Phaser.Point(500, 10000);
-    this.accel = 500;
-    this.body.gravity.y = 4000;
+    this.body.gravity.y = 3000;
     this.inId = false;
     this.faceleft = false;
     this.pause = false;
@@ -30,8 +29,6 @@ Player.prototype.constructor = Player;
 // override Phaser.Sprite update (to spin the diamond)
 Player.prototype.update = function () {
     //speed up
-
-    var xAcc = 0;
     
     if(this.pause){
         this.frame = 5;
@@ -76,7 +73,7 @@ Player.prototype.update = function () {
     if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) ||
         game.input.keyboard.isDown(Phaser.Keyboard.D)){
         this.animations.play('walk');
-        xAcc += this.accel;
+        this.body.velocity.x = 400;
         if(!this.inId){
             if(!this.walkingSound1.isPlaying && !this.walkingSound2.isPlaying){
                 this.walkingSound1.play();
@@ -90,8 +87,7 @@ Player.prototype.update = function () {
         
     }else if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) ||
         game.input.keyboard.isDown(Phaser.Keyboard.A)){
-        this.animations.play('walk');
-        xAcc -= this.accel;
+        this.body.velocity.x = -400;
         if(!this.inId){
             if(!this.walkingSound1.isPlaying && !this.walkingSound2.isPlaying){
                 this.walkingSound1.play();
@@ -110,9 +106,7 @@ Player.prototype.update = function () {
         this.body.velocity.x = 0;
     }
         
-    this.body.acceleration.x = xAcc;
-        
-        if(!this.body.onFloor()){
+           if(!this.body.onFloor()){
             this.walkingSound1.stop();
             this.walkingSound2.stop();
             this.frame = 0;

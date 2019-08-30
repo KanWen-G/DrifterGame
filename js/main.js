@@ -12,7 +12,6 @@ window.onload = function() {
     
     // define game
     game = new Phaser.Game(800,600, Phaser.AUTO, 'myGame');
-    
     // define states
     game.state.add('load', load);
     game.state.add('intromonologue', intromonologue);

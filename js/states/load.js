@@ -3,7 +3,9 @@ var game;
 var p;
 var inId = false;
 var map;
-var isLock = 0;// Load state
+var isLock = 0;
+
+// Load state
 
 var load = function(game) {};
 load.prototype = {

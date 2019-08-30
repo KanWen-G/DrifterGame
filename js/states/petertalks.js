@@ -19,7 +19,7 @@ petertalks.prototype = {
         ];
     
         this.line = [];
-    
+        this.time = 0;
         this.wordIndex = 0;
         this.lineIndex = 0;
     
@@ -44,11 +44,23 @@ petertalks.prototype = {
 
     },
     update: function(){
-        if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
+        if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && wordIndex === line.length) {
             this.sound.stop();
             game.camera.fade(0x000000, 1000);
             game.time.events.add(Phaser.Timer.SECOND * 1, this.startGame, this);
         }
+    
+        if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            this.time++;
+        }
+
+        if(this.time > 3000){
+            this.time = 0;
+            this.sound.stop();
+            game.camera.fade(0x000000, 1000);
+            game.time.events.add(Phaser.Timer.SECOND * 1, this.startGame, this);
+        }
+
     },
 
     nextLine2: function() {

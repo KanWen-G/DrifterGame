@@ -47,10 +47,20 @@ infirmaryintroscene.prototype = {
             this.flashNext = game.add.tween(this.nextQuote2).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true, 0, 1000, true).loop(true);
             this.flashNext.start();
         }
-        if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) && this.firstTextDone1) {
+
+        if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            this.time++;
+        }
+
+        if(game.input.keyboard.justReleased(Phaser.Keyboard.SPACEBAR)) {
+            this.time = 0;
+        } 
+
+        if(this.time > 100){
             game.camera.fade(0x000000, 1000);
             game.time.events.add(Phaser.Timer.SECOND * 1, this.startGame, this);
         }
+
     },
     firstLine: function(){
         
